@@ -42,19 +42,20 @@ The output from the proof of concept should be:
 <!DOCTYPE html>
 <html data-hcas-type="Page">
 <head>
+	<link rel="stylesheet" href="/stylesheets/hcasLayout.css">
 </head>
 <body>
     <div data-hcas-type="StackPanel">
-        <h1 data-hcas-type="Header">This is the Header</h1>
-        <div data-hcas-type="StackPanel">
-            <button data-hcas-type="Button">Button Top</button>
-            <p data-hcas-type="TextBlock">TextBlock with normal text property</p>
+        <h1 data-hcas-type="Header" class="stackPanelChild">This is the Header</h1>
+        <div data-hcas-type="StackPanel" class="stackPanelChild">
+            <button data-hcas-type="Button" class="stackPanelChild">Button Top</button>
+            <p data-hcas-type="TextBlock" class="stackPanelChild">TextBlock with normal text property</p>
         </div>
-        <p data-hcas-type="TextBlock">
+        <p data-hcas-type="TextBlock" class="stackPanelChild">
             Before Text: This is a full, hardcoded paragraph where you can write full texts in the way you want.
         </p>
-        <button data-hcas-type="Button">Button</button>
-        <a data-hcas-type="HyperLink" href="http://www.wikipedia.org">Wikipedia</a>
+        <button data-hcas-type="Button" class="stackPanelChild">Button</button>
+        <a data-hcas-type="HyperLink" href="http://www.wikipedia.org" class="stackPanelChild">Wikipedia</a>
     </div>
 </body>
 </html>

@@ -1,5 +1,5 @@
 ﻿//For now it's going to interpret only xml2js json files, I'll think about a better way of implementing the hcas file reader later.
-function ElementInternalApi(hcasEl, properties, content, childrenRender) {
+function ElementInternalApi(hcasEl, properties, content, classes, childrenRender) {
     function getContent() {
         var children = childrenRender();
         if (!children)
@@ -21,6 +21,11 @@ function ElementInternalApi(hcasEl, properties, content, childrenRender) {
         tag += "<" + name;
         tag += ' data-hcas-type="{0}"'.replace("{0}", hcasEl);        
         tag += " " + properties.join(" ");
+        
+        if (classes) {
+            tag += ' class="{0}"'.replace("{0}", classes.join(" "));
+        }
+            
         if (innerContent) {
             tag += ">";
             tag += innerContent;
@@ -44,6 +49,8 @@ function ElementObject(name, node, element) {
     var renderFunction = element.renderFunction;
     var properties = [];
     var content;
+    var childrenClasses = element.childClasses;
+    var ownClasses = [];
     
     function setProperties(props, children) {
         if (!children)
@@ -107,7 +114,12 @@ function ElementObject(name, node, element) {
     
     this.addChild = function (el) {
         children.push(el);
+        el.addClasses(childrenClasses);
     };
+    
+    this.addClasses = function (classes) {
+        ownClasses = classes;
+    }
     
     function childrenRender() {
         var result = "";
@@ -118,7 +130,7 @@ function ElementObject(name, node, element) {
     }
 
     this.render = function () {
-        return renderFunction(new ElementInternalApi(name, properties, content, childrenRender));
+        return renderFunction(new ElementInternalApi(name, properties, content, ownClasses, childrenRender));
     };
 
     construct();
@@ -184,6 +196,7 @@ hcas.addElement("Page", {
         return builder.buildHtmlElement("html", function (content) {
             return [
                 '<head>',
+                '<link rel="stylesheet" href="/stylesheets/hcasLayout.css">',
                 '</head>',
                 '<body>',
                 content,
@@ -196,6 +209,9 @@ hcas.addElement("Page", {
 hcas.addElement("StackPanel", {
     properties: [],
     childProperties: {},
+    childClasses: [
+        "stackPanelChild"
+    ],
     renderFunction: function (builder, childrenRender) {
         return builder.buildHtmlElement("div");
     }

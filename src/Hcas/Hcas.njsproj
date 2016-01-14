@@ -38,6 +38,7 @@
     <Compile Include="bin\www" />
     <Content Include="HcasApp\index.hcas" />
     <Content Include="package.json" />
+    <Content Include="public\stylesheets\hcasLayout.css" />
     <Content Include="public\stylesheets\style.styl" />
     <Content Include="README.md" />
     <Content Include="views\index.jade" />
