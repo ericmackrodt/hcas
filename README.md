@@ -2,9 +2,19 @@
 --------------------------------
 This is a pet project of mine.
 
-Yeah, it resembles Xaml.
+Background
+-----------
+
+CSS and HTML can be two very difficult and unmanageable things, as your code base grows, readability can start to be an issue. Not only that, but doing trivial things in CSS, like vertical or horizontal alignment for example, can be very painful.
+
+The idea with HCAS, as a proof of concept for now, is to create a markup language that is easier to read, to organize and easy to style. So, if you set a `VerticalAlignment="center"`, for example, the element should be vertically aligned without any pain. Also, when the concept of Resources is implemented, it will be easier to organize and apply styles (like CSS, but without the pain).
+
+This project is being developed as a JS library that renders real html and CSS either directly in the browser or via node.js, but it would be awesome if, in the future, an engine was implemented for browsers to render HCAS files natively. But this is just an ambitious dream. Libraries for other platforms, like JAVA and ASP.NET, should be easier to implement though.
+
+Oh, and yeah, it resembles Xaml.
 
 Basic Example of Code:
+-----------------------
 
 ```
 <Page>
@@ -26,6 +36,7 @@ Basic Example of Code:
 ```
 
 The output from the proof of concept should be: 
+-----------------------------------------
 
 ```
 <!DOCTYPE html>
