@@ -1,0 +1,27 @@
+<Page>
+	
+	<StackPanel orientation="vertical" 
+              horizontalAlign="stretch" 
+              background="#000000">
+
+		<Header text="This is the Header" />
+
+    <StackPanel>
+      <Button content="Button Top" />
+      <TextBlock text="TextBlock with normal text property" />
+    </StackPanel>
+
+		<TextBlock>
+			<TextBlock.Text>
+				Before Text: This is a full, hardcoded paragraph where you can write full texts in the way you want.
+			</TextBlock.Text>
+		</TextBlock>
+
+		<Button content="Button" />
+
+		<HyperLink content="Wikipedia" 
+               url="http://www.wikipedia.org" />
+
+	</StackPanel>
+
+</Page>
