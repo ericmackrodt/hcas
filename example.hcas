@@ -1,0 +1,22 @@
+<Page>
+	
+	<StackPanel orientation="vertical" 
+				horizontalAlign="stretch" 
+				background="#000000">
+
+		<Header text="Header Text" />
+
+		<TextBlock>
+			<TextBlock.Text>
+				This is a full, hardcoded paragraph where you can write full texts in the way you want.
+			</TextBlock.Text>
+		</TextBlock>
+
+		<Button content="This is a button text" />
+
+		<HyperLink content="Google" 
+				   url="http://www.google.com" />
+
+	</StackPanel>
+
+</Page>
