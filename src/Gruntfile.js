@@ -1,8 +1,17 @@
 module.exports = function(grunt) {
 
   grunt.initConfig({
+    concat: {
+      options: {
+        //separator: ';',
+      },
+      node: {
+        src: ['hcas/hcas.node.js', 'hcas/hcas.js', 'hcas/hcas.element.js', 'hcas/hcas.parser.js', 'hcas/Controls/*.js'],
+        dest: '_build/hcas.build.js',
+      } 
+    },
     jshint: {
-      files: ['Gruntfile.js', 'hcas/**/*.js', 'tests/**/*.js'],
+      files: ['Gruntfile.js', 'hcas/**/*.js'],
       options: {
         globals: {
           jQuery: true
@@ -30,6 +39,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-mocha');
+  grunt.loadNpmTasks('grunt-contrib-concat');
 
   grunt.registerTask('default', ['jshint']);
   grunt.registerTask('test', ['mocha']);

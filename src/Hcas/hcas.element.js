@@ -1,0 +1,119 @@
+//Object that represents an instantiated HCAS Element on Server-Side
+(function (hcas) {
+	"use strict";
+
+	hcas.Element = function (structure) {
+		var children = [];
+		var content = null;
+		var html = [];
+		var attributes = {};
+		var defaultAttributes = {
+			'name': function (value) {
+				
+			}
+		};
+
+		//Review these variables
+		var isRootWritten = false;
+		var rootEl;
+
+		//Create an HTMLWRITER object
+		var renderApi = {
+			startRoot: function(el, shouldRenderAttributes) {
+				if (isRootWritten)
+					throw "You cannot write the Root element twice";
+
+				var renderAttributes = function() {
+					var attrs = Object.keys(attributes);
+					for (var i in attrs) {
+						var key = attrs[i];
+						var attr = structure.attributes[key];
+						var value = attributes[key];
+						return attr.render(value);
+					}
+				}
+				
+				//CHANGE THE WAY ATTRIBUTES ARE Rendering!!
+				var root = ['<', el, ' data-hcasType="', structure.type, '"' + (shouldRenderAttributes ? renderAttributes() : '') + '>'].join('');
+				rootEl = el;
+				html.push(root);
+			},
+			endRoot: function() {
+				if (!rootEl)
+					throw hcas.formatString("No root element to render in ({0})", structure.type);
+
+				html.push(['</', rootEl, '>'].join(''));
+				isRootWritten = true;
+			},
+			write: function(content) {
+				html.push(content);
+			},
+			renderChildren: function() {
+				for (var i in children) {
+					var child = children[i];
+					html.push(child.render());
+				}
+			},
+			writeContent: function() {
+				html.push(content);
+			},
+			writeAttributes: function() {
+				for (var key in Object.keys(attributes)) {
+					var attr = structure.attributes[key];
+					var value = attributes[key];
+					html.push(attr.render(value));
+				}
+			}
+		};
+
+		Object.defineProperty(this, "type", {
+			get: function () {
+				return structure.type;
+			}
+		});
+
+		Object.defineProperty(this, "isRoot", {
+			get: function () {
+				return structure.isRoot || false;
+			}
+		});
+		
+		Object.defineProperty(this, "children", {
+			get: function () {
+				return children;
+			}
+		});
+
+		this.addChild = function(element) {
+			children.push(element);
+		};
+
+		this.setContent = function(value) {
+			content = value;
+		};
+
+		this.addAttribute = function(name, value) {
+			if (!structure.attributes || !structure.attributes[name]) 
+				throw hcas.formatString("Element of type ({0}) does not contain an attribute named ({1})", structure.type, name);
+
+			var attr = structure.attributes[name];
+
+			if (attr.isContent)
+				content = value;
+			else 
+				attributes[name] = value;
+		};
+
+		this.render = function () {
+			console.log('Rendering:', structure.type);
+
+			structure.render(renderApi);
+
+			if (!isRootWritten)
+				throw hcas.formatString("You have to write a Root element for ({0})", structure.type);
+
+			return html.join('\n');
+		};
+	};
+
+}) (typeof exports === 'undefined' ? this.hcas = this.hcas || {} : exports);

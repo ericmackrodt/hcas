@@ -29,3 +29,4 @@ node_modules
 .vs/
 output/
 _output/
+_build/

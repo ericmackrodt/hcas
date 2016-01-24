@@ -1,53 +1,30 @@
 ﻿(function (hcas) {
-	"use strict"
+	"use strict";
 
-	hcas.Document = function (doc) {
-		
+	var registeredElements = {};
+
+	hcas.formatString = function() {
+		var content = arguments[0];
+
+		for (var i = 0 ; i < arguments.length; i++) {
+			content = content.replace("{" + i + "}", arguments[i + 1]);
+		}
+
+		return content;
 	};
 
-})(typeof exports === 'undefined' ? this.hcas = {} : exports);
-
-(function (hcas) {
-	"use strict"
-
-	var elements = {};
-
-	var strict = true;
-	var parser = sax.parser(strict);
-
-	parser.onerror = function (e) {
-		console.log(e);
-	  	// an error happened.
+	hcas.element = function (type, structure) {
+		var el = structure();
+		el.type = type;
+		registeredElements[type] = el;
 	};
-	parser.ontext = function (t) {
-	  	// got some text.  t is the string of text.
-	  	console.log(t);
+
+	hcas._retrieveElement = function (type) {
+		var el = registeredElements[type];
+		if (!el)
+			throw hcas.formatString("Element ({0}) doesn't exist.", type);
+
+		return el;
 	};
-	parser.onopentag = function (node) {
-	  	// opened a tag.  node has "name" and "attributes"
-	  	console.log(node);
-	};
-	parser.onattribute = function (attr) {
-	  	// an attribute.  attr has "name" and "value"
-	  	console.log(attr);
-	};
-	parser.onend = function () {
-	  	// parser stream is done, and ready to have more stuff written to it.
-	  	console.log('end');
-	};	
 
-    hcas.parse = function (str) {
-    	parser.write(str).close();
-    	//<xml>Hello, <who name="world">world</who>!</xml>
-    	return { Page: {} };
-    };
-
-    hcas.setBaseElement = function (name, fn) {
-
-    };
-
-    hcas.element = function(name, fn) {
-
-    };
-
-})(typeof exports === 'undefined' ? this.hcas = {} : exports);
+}) (typeof exports === 'undefined' ? this.hcas = this.hcas || {} : exports);
