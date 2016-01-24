@@ -1,7 +1,7 @@
 (function (hcas) {
 	"use strict";
 
-	hcas.element("StackPanel", function(api) {
+	hcas.control("StackPanel", function(api) {
 		return {
 			attributes: {
 				orientation: {
@@ -25,7 +25,7 @@
 			childAttributes: {
 				Title: "title"
 			},
-			allowsElements: true,
+			allowsControls: true,
 			render: function (renderApi) {
 				renderApi.startRoot('div');
 				renderApi.renderChildren();

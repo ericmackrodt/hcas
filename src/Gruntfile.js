@@ -6,7 +6,7 @@ module.exports = function(grunt) {
         //separator: ';',
       },
       node: {
-        src: ['hcas/hcas.node.js', 'hcas/hcas.js', 'hcas/hcas.element.js', 'hcas/hcas.parser.js', 'hcas/Controls/*.js'],
+        src: ['hcas/hcas.node.js', 'hcas/hcas.js', 'hcas/hcas.control.js', 'hcas/hcas.parser.js', 'hcas/Controls/*.js'],
         dest: '_build/hcas.build.js',
       } 
     },

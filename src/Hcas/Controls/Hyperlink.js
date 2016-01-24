@@ -1,7 +1,7 @@
 (function (hcas) {
 	"use strict";
 
-	hcas.element("Hyperlink", function(api) {
+	hcas.control("Hyperlink", function(api) {
 		return {
 			attributes: {
 				content: {

@@ -1,7 +1,7 @@
 ﻿(function (hcas) {
 	"use strict";
 
-	hcas.element("Page", function(api) {
+	hcas.control("Page", function(api) {
 		return {
 			attributes: {
 				title: {
@@ -11,11 +11,11 @@
 					}
 				}
 			},
-			elementAttributes: {
+			controlAttributes: {
 				Title: "title"
 			},
 			isRoot: true,
-			allowsElements: true,
+			allowsControls: true,
 			render: function (renderApi) {
 				renderApi.write('<!DOCTYPE html>');
 				renderApi.startRoot('html');

@@ -1,7 +1,7 @@
 (function (hcas) {
 	"use strict";
 
-	hcas.element("Grid", function(api) {
+	hcas.control("Grid", function(api) {
 		return {
 			attributes: {
 			},

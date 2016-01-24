@@ -40,25 +40,25 @@
 	parser.onopentag = function (tag) {
 	  	var node = getPreviousNode();
 
-	  	var el = hcas._retrieveElement(tag.name);
-	  	var element = new hcas.Element(el);
-	  	levels.push(element);
+	  	var ct = hcas.retrieveControl(tag.name);
+	  	var control = new hcas.Control(el);
+	  	levels.push(control);
 
-	  	if (node === tree && !element.isRoot)
-	  		throw hcas.formatString("You cannot have an element of type ({0}) as the Root element", tag.name);
+	  	if (node === tree && !control.isRoot)
+	  		throw hcas.formatString("You cannot have an control of type ({0}) as the Root control", tag.name);
 
-	  	if (node instanceof hcas.Element && element.isRoot)
-	  		throw hcas.formatString("You cannot have a Root element of type ({0}) as a child", tag.name);
+	  	if (node instanceof hcas.Control && control.isRoot)
+	  		throw hcas.formatString("You cannot have a Root control of type ({0}) as a child", tag.name);
 
 	  	if (node === tree) {
-	  		node[tag.name] = element;
+	  		node[tag.name] = control;
 	  	} else {
-	  		node.addChild(element);
+	  		node.addChild(control);
 	  	}	  	
 
 	  	if (Object.keys(currentAttributes).length > 0) {
 	  		for (var attr in currentAttributes) {
-	  			element.addAttribute(attr, currentAttributes[attr]);
+	  			control.addAttribute(attr, currentAttributes[attr]);
 	  		}
 
 	  		currentAttributes = {};

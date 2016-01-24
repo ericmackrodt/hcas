@@ -1,8 +1,8 @@
-//Object that represents an instantiated HCAS Element on Server-Side
+//Object that represents an instantiated HCAS Control on Server-Side
 (function (hcas) {
 	"use strict";
 
-	hcas.Element = function (structure) {
+	hcas.Control = function (structure) {
 		var children = [];
 		var content = null;
 		var html = [];
@@ -21,7 +21,7 @@
 		var renderApi = {
 			startRoot: function(el, shouldRenderAttributes) {
 				if (isRootWritten)
-					throw "You cannot write the Root element twice";
+					throw "You cannot write the Root control twice";
 
 				var renderAttributes = function() {
 					var attrs = Object.keys(attributes);
@@ -40,7 +40,7 @@
 			},
 			endRoot: function() {
 				if (!rootEl)
-					throw hcas.formatString("No root element to render in ({0})", structure.type);
+					throw hcas.formatString("No root control to render in ({0})", structure.type);
 
 				html.push(['</', rootEl, '>'].join(''));
 				isRootWritten = true;
@@ -84,8 +84,8 @@
 			}
 		});
 
-		this.addChild = function(element) {
-			children.push(element);
+		this.addChild = function(control) {
+			children.push(control);
 		};
 
 		this.setContent = function(value) {
@@ -94,7 +94,7 @@
 
 		this.addAttribute = function(name, value) {
 			if (!structure.attributes || !structure.attributes[name]) 
-				throw hcas.formatString("Element of type ({0}) does not contain an attribute named ({1})", structure.type, name);
+				throw hcas.formatString("Control of type ({0}) does not contain an attribute named ({1})", structure.type, name);
 
 			var attr = structure.attributes[name];
 
@@ -110,7 +110,7 @@
 			structure.render(renderApi);
 
 			if (!isRootWritten)
-				throw hcas.formatString("You have to write a Root element for ({0})", structure.type);
+				throw hcas.formatString("You have to write a Root control for ({0})", structure.type);
 
 			return html.join('\n');
 		};

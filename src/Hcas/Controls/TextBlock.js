@@ -1,14 +1,14 @@
 (function (hcas) {
 	"use strict";
 	
-	hcas.element("TextBlock", function(api) {
+	hcas.control("TextBlock", function(api) {
 		return {
 			attributes: {
 				text: {
 					isContent: true
 				}
 			},
-			allowsElements: true,
+			allowsControls: true,
 			render: function (renderApi) {
 				renderApi.startRoot('p');
 				renderApi.writeContent();

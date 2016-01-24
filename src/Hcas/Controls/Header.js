@@ -1,7 +1,7 @@
 (function (hcas) {
 	"use strict";
 	
-	hcas.element("Header", function(api) {
+	hcas.control("Header", function(api) {
 		return {
 			attributes: {
 				text: {

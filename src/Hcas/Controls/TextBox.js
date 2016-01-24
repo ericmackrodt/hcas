@@ -1,7 +1,7 @@
 (function (hcas) {
 	"use strict";
 	
-	hcas.element("TextBox", function(api) {
+	hcas.control("TextBox", function(api) {
 		return {
 			attributes: {
 				text: {
@@ -11,7 +11,7 @@
 			childAttributes: {
 				Text: "text"
 			},
-			allowsElements: true,
+			allowControls: true,
 			render: function (renderApi) {
 
 			}
