@@ -41,7 +41,7 @@
 	  	var node = getPreviousNode();
 
 	  	var ct = hcas.retrieveControl(tag.name);
-	  	var control = new hcas.Control(el);
+	  	var control = new hcas.Control(ct);
 	  	levels.push(control);
 
 	  	if (node === tree && !control.isRoot)

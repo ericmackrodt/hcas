@@ -22,6 +22,6 @@ router.get('/', function (req, res) {
 
 app.use('/', router);
 
-app.listen(8080, function () {
-  console.log('Hcas app listening on port 8080');
+app.listen(3000, function () {
+  console.log('Hcas app listening on port 3000');
 });
