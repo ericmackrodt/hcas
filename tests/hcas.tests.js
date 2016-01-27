@@ -1,4 +1,7 @@
-﻿var expect = chai.expect;
+﻿var hcas=require('../_build/hcas.build.js');
+var chai = require('chai');
+
+var expect = chai.expect;
 chai.should();
 
 describe('Hcas', function () {

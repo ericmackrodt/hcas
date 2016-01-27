@@ -45,16 +45,40 @@ module.exports = function(grunt) {
         },
         src: ['tests/*tests.js']
       }
-    }
+    },
+    mocha_istanbul: {
+    coverage: {
+          src: 'tests', // the folder, not the files
+          options: {
+              coverageFolder: 'coverage',
+              mask: '**/*.tests.js',
+              root: '_build/'
+              }
+          }
+      }
   });
+
+   grunt.event.on('coverage', function(lcovFileContents, done){
+        //hcas=require('./_build/hcas.build.js');
+        chai=require('chai');
+        // Check below on the section "The coverage event"
+        done();
+    });
+
 
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-mocha');
   grunt.loadNpmTasks('grunt-mocha-test');
   grunt.loadNpmTasks('grunt-contrib-concat');
+  grunt.loadNpmTasks('grunt-mocha-istanbul');
 
   grunt.registerTask('default', ['jshint']);
-  grunt.registerTask('test', ['mocha']);
+  //grunt.registerTask('test', ['mocha']);
   grunt.registerTask('travis', ['jshint', 'concat', 'mochaTest']);
+
+  grunt.registerTask('test', [
+        'mocha_istanbul:coverage'
+    ]);
+
 };
