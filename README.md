@@ -1,6 +1,6 @@
 # HCAS (Html and CSS Are Stupid)
 --------------------------------
-[![Build Status](https://travis-ci.org/ericmackrodt/hcas.svg?branch=master)](https://travis-ci.org/ericmackrodt/hcas)[![Coverage Status](https://coveralls.io/repos/github/ericmackrodt/hcas/badge.svg?branch=master)](https://coveralls.io/github/ericmackrodt/hcas?branch=master)
+[![Build Status](https://travis-ci.org/ericmackrodt/hcas.svg?branch=master)](https://travis-ci.org/ericmackrodt/hcas) [![Coverage Status](https://coveralls.io/repos/github/ericmackrodt/hcas/badge.svg?branch=master)](https://coveralls.io/github/ericmackrodt/hcas?branch=master)
 
 Background
 -----------
