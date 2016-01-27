@@ -18,11 +18,10 @@
     "grunt-contrib-concat": "^0.5.1",
     "grunt-contrib-jshint": "^0.12.0",
     "grunt-contrib-watch": "^0.6.1",
-    "grunt-mocha": "^0.4.15",
     "grunt-mocha-istanbul": "^3.0.1",
-    "grunt-mocha-test": "^0.12.7",
     "istanbul": "^0.4.2",
-    "mocha": "^2.3.4"
+    "mocha": "^2.3.4",
+    "mocha-lcov-reporter": "^1.0.0"
   },
   "dependencies": {
     "sax": "^1.1.4"

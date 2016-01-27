@@ -1,6 +1,6 @@
+var chai = chai || require('chai');
+var hcas = hcas || require('../_build/hcas.node.js');
 
-var hcas=require('../_build/hcas.build.js');
-var chai = require('chai');
 var expect = chai.expect;
 chai.should();
 

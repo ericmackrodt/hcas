@@ -1,5 +1,6 @@
-﻿var hcas=require('../_build/hcas.build.js');
-var chai = require('chai');
+﻿var sax = sax || require('sax');
+var chai = chai || require('chai');
+var hcas = hcas || require('../_build/hcas.node.js');
 
 var expect = chai.expect;
 chai.should();
@@ -9,9 +10,9 @@ describe('Hcas', function () {
 	    expect(hcas).to.exist;
 	});
 
-	// it('should have sax present', function () {
-	//     expect(sax).to.exist;
-	// });	
+	it('should have sax present', function () {
+	    expect(sax).to.exist;
+	});	
 
 	describe('Control Registry', function() {
 		var _registryInstance;

@@ -30,3 +30,4 @@ node_modules
 output/
 _output/
 _build/
+_coverage/
