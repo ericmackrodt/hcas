@@ -31,7 +31,7 @@
 						var value = attributes[key];
 						return attr.render(value);
 					}
-				}
+				};
 				
 				//CHANGE THE WAY ATTRIBUTES ARE Rendering!!
 				var root = ['<', el, ' data-hcasType="', structure.type, '"' + (shouldRenderAttributes ? renderAttributes() : '') + '>'].join('');

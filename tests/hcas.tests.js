@@ -6,9 +6,9 @@ describe('Hcas', function () {
 	    expect(hcas).to.exist;
 	});
 
-	it('should have sax present', function () {
-	    expect(sax).to.exist;
-	});	
+	// it('should have sax present', function () {
+	//     expect(sax).to.exist;
+	// });	
 
 	describe('Control Registry', function() {
 		var _registryInstance;
