@@ -1,4 +1,4 @@
-# HCAS (Html and CSS Are Stupid)
+# HCAS (Html and CSS Are Stupid) [![Build Status](https://travis-ci.org/ericmackrodt/hcas.svg?branch=master)](https://travis-ci.org/ericmackrodt/hcas)
 --------------------------------
 This is a pet project of mine.
 
