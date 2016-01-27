@@ -10,7 +10,7 @@ install: npm install
 before_script: grunt concat
 
 script:
-- grunt travis
+- grunt test
 
 branches:
     only:
