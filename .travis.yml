@@ -5,14 +5,9 @@ language: node_js
 node_js:
 - '5.5.0'
 
-env:
-  global:
-  - LOGS_DIR=/tmp/hcas-build/logs
-  - DISPLAY=:99.0
-
 before_install: npm install -g grunt-cli
 install: npm install
-before_script: grint concat
+before_script: grunt concat
 
 script:
 - grunt travis
