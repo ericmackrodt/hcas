@@ -60,3 +60,8 @@ The output from the proof of concept should be:
 </body>
 </html>
 ```
+
+Contributing:
+-------------
+
+If you desire to contribute to the project with new features or fixes, please create a fork and, when finished, do a pull request against the master branch. The reason is so I can have more control of the code that is being pushed to the repo.
