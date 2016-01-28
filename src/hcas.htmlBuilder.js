@@ -1,8 +1,10 @@
 //Object that represents an instantiated HCAS Control on Server-Side
-(function (hcas) {
+module.exports = (function (self) {
 	"use strict";
 
-	hcas.HtmlBuilder = function () {
+	var utils = require('./hcas.utils.js');
+
+	var HtmlBuilder = function () {
 		var htmlArray = [];
 		var openedTags = [];
 
@@ -43,11 +45,11 @@
 					opened = true;
 			}
 			if (!opened)
-				throw new Error(hcas.formatString('You have to open a ({0}) tag before closing it', val));
+				throw new Error(utils.formatString('You have to open a ({0}) tag before closing it', val));
 
 			var openedTag = openedTags[openedTags.length - 1];
 			if (openedTag !== val)
-				throw new Error(hcas.formatString('You have to close ({0}) before closing ({1})', openedTag, val));
+				throw new Error(utils.formatString('You have to close ({0}) before closing ({1})', openedTag, val));
 
 			var lastIndex = htmlArray.length - 1;
 			openedTag = htmlArray[lastIndex];
@@ -69,4 +71,6 @@
 		};
 	};
 
-}) (typeof exports === 'undefined' ? this.hcas = this.hcas || {} : exports);
+	return HtmlBuilder;
+
+}) (typeof exports === 'undefined' ? self.hcas = self.hcas || {} : exports);

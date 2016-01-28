@@ -1,5 +1,5 @@
 var chai = chai || require('chai');
-var hcas = hcas || require('../_build/hcas.node.js');
+var HtmlBuilder = require('../src/hcas.htmlBuilder.js');
 
 var expect = chai.expect;
 chai.should();
@@ -8,7 +8,7 @@ describe('Hcas HtmlBuilder', function () {
 	var htmlBuilder;
 
 	beforeEach(function() {
-		htmlBuilder = new hcas.HtmlBuilder();
+		htmlBuilder = new HtmlBuilder();
 	});
 
 	afterEach(function() {

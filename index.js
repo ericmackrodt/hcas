@@ -1,1 +1,1 @@
-var hcas = require('./src/hcas');
+module.exports = require('./src/hcas.js');

@@ -1,5 +1,6 @@
-(function (hcas) {
-	hcas.formatString = function() {
+(function (self) {
+
+	self.formatString = function() {
 		var content = arguments[0];
 		var result = content;
 		
@@ -13,4 +14,5 @@
 
 		return result;
 	};
-}) (typeof exports === 'undefined' ? this.hcas = this.hcas || {} : exports);
+	
+}) (typeof exports === 'undefined' ? self.hcas = self.hcas || {} : exports);

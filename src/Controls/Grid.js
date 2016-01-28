@@ -1,7 +1,7 @@
-(function (hcas) {
+module.exports = function (hcas) {
 	"use strict";
 
-	hcas.control("Grid", function(api) {
+	hcas.defineControl("Grid", function(api) {
 		return {
 			attributes: {
 			},
@@ -18,4 +18,4 @@
 		};
 	});
 
-}) (typeof exports === 'undefined' ? this.hcas = this.hcas || {} : exports);
+};

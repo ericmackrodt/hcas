@@ -1,5 +1,10 @@
-(function (hcas) {
+module.exports = (function () {
 	"use strict";
+
+	var utils = require('./hcas.utils.js');
+	var Control = require('./hcas.control.js');
+	var sax = require('sax');
+	var repository;
 
 	var tree = {
 		name: "HcasDocument",
@@ -40,15 +45,15 @@
 	parser.onopentag = function (tag) {
 	  	var node = getPreviousNode();
 
-	  	var ct = hcas.retrieveControl(tag.name);
-	  	var control = new hcas.Control(ct);
+	  	var ct = repository.retrieveControl(tag.name);
+	  	var control = new Control(ct);
 	  	levels.push(control);
 
 	  	if (node === tree && !control.isRoot)
-	  		throw hcas.formatString("You cannot have an control of type ({0}) as the Root control", tag.name);
+	  		throw utils.formatString("You cannot have an control of type ({0}) as the Root control", tag.name);
 
-	  	if (node instanceof hcas.Control && control.isRoot)
-	  		throw hcas.formatString("You cannot have a Root control of type ({0}) as a child", tag.name);
+	  	if (node instanceof Control && control.isRoot)
+	  		throw utils.formatString("You cannot have a Root control of type ({0}) as a child", tag.name);
 
 	  	if (node === tree) {
 	  		node[tag.name] = control;
@@ -85,13 +90,16 @@
 	
 	parser.onend = function () {
 	  	finishedCallback(tree);
-	};	
+	};
 
-    hcas.parse = function (document, callback) {
-    	finishedCallback = callback;
-    	parser.write(document).close();
-    };
+	return function(repo) {
+		repository = repo;
+		return {
+			parse: function (document, callback) {
+		    	finishedCallback = callback;
+		    	parser.write(document).close();
+		    }
+		}
+	};
 
-
-
-})(typeof exports === 'undefined' ? this.hcas = this.hcas || {} : exports);
+})();//typeof exports === 'undefined' ? self.hcas = self.hcas || {} : exports);

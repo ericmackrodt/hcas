@@ -1,7 +1,7 @@
-(function (hcas) {
+module.exports = function (hcas) {
 	"use strict";
 
-	hcas.control("StackPanel", function(api) {
+	hcas.defineControl("StackPanel", function(api) {
 		return {
 			attributes: {
 				orientation: {
@@ -34,5 +34,5 @@
 		};
 	});
 	
-}) (typeof exports === 'undefined' ? this.hcas = this.hcas || {} : exports);
+};
 

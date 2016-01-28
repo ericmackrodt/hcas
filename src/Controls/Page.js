@@ -1,7 +1,7 @@
-﻿(function (hcas) {
+﻿module.exports = function (hcas) {
 	"use strict";
 
-	hcas.control("Page", function(api) {
+	hcas.defineControl("Page", function(api) {
 		return {
 			attributes: {
 				title: {
@@ -29,4 +29,4 @@
 		};
 	});
 
-}) (typeof exports === 'undefined' ? this.hcas = this.hcas || {} : exports);
+};

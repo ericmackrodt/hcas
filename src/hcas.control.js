@@ -1,8 +1,10 @@
 //Object that represents an instantiated HCAS Control on Server-Side
-(function (hcas) {
+module.exports = (function () {
 	"use strict";
 
-	hcas.Control = function (structure) {
+	var utils = require('./hcas.utils.js');
+
+	var Control = function (structure) {
 		var children = [];
 		var content = null;
 		var html = [];
@@ -40,7 +42,7 @@
 			},
 			endRoot: function() {
 				if (!rootEl)
-					throw hcas.formatString("No root control to render in ({0})", structure.type);
+					throw utils.formatString("No root control to render in ({0})", structure.type);
 
 				html.push(['</', rootEl, '>'].join(''));
 				isRootWritten = true;
@@ -94,7 +96,7 @@
 
 		this.addAttribute = function(name, value) {
 			if (!structure.attributes || !structure.attributes[name]) 
-				throw hcas.formatString("Control of type ({0}) does not contain an attribute named ({1})", structure.type, name);
+				throw utils.formatString("Control of type ({0}) does not contain an attribute named ({1})", structure.type, name);
 
 			var attr = structure.attributes[name];
 
@@ -110,10 +112,12 @@
 			structure.render(renderApi);
 
 			if (!isRootWritten)
-				throw hcas.formatString("You have to write a Root control for ({0})", structure.type);
+				throw utils.formatString("You have to write a Root control for ({0})", structure.type);
 
 			return html.join('\n');
 		};
 	};
 
-}) (typeof exports === 'undefined' ? this.hcas = this.hcas || {} : exports);
+	return Control;
+
+}) ();

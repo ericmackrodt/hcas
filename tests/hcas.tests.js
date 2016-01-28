@@ -1,6 +1,6 @@
 ﻿var sax = sax || require('sax');
 var chai = chai || require('chai');
-var hcas = hcas || require('../_build/hcas.node.js');
+var hcas = hcas || require('../src/hcas.js');
 
 var expect = chai.expect;
 chai.should();
@@ -26,7 +26,7 @@ describe('Hcas', function () {
 
 		it('should throw an exception if control does not have a render method', function () {
 			var sut = function () {
-				_registryInstance.control('Control', function() {
+				_registryInstance.defineControl('Control', function() {
 					return {
 
 					}
@@ -37,7 +37,7 @@ describe('Hcas', function () {
 
 		it('should fail when adding an Control without a type', function() {
 			var sut = function () {
-				_registryInstance.control(function () {
+				_registryInstance.defineControl(function () {
 					return {
 						render: function () {}
 					}
@@ -49,7 +49,7 @@ describe('Hcas', function () {
 
 		it('should fail when adding an Control wihout an implementation', function() {
 			var sut = function () {
-				_registryInstance.control("Control");
+				_registryInstance.defineControl("Control");
 			};
 
 			expect(sut).to.throw('The Control (Control) does not have an implementation');
@@ -57,13 +57,13 @@ describe('Hcas', function () {
 
 		it('should not be able to add two controls of the same Type', function() {
 			var sut = function () {
-				_registryInstance.control("Control", function () {
+				_registryInstance.defineControl("Control", function () {
 					return {
 						render: function () {}
 					}
 				});
 
-				_registryInstance.control("Control", function () {
+				_registryInstance.defineControl("Control", function () {
 					return {
 						render: function () {}
 					}
@@ -88,7 +88,7 @@ describe('Hcas', function () {
 				}
 			};
 
-			_registryInstance.control("Control", implementation);
+			_registryInstance.defineControl("Control", implementation);
 
 			var result = _registryInstance.retrieveControl("Control");
 			console.log(result);

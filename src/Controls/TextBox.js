@@ -1,7 +1,7 @@
-(function (hcas) {
+module.exports = function (hcas) {
 	"use strict";
 	
-	hcas.control("TextBox", function(api) {
+	hcas.defineControl("TextBox", function(api) {
 		return {
 			attributes: {
 				text: {
@@ -18,4 +18,4 @@
 		};
 	});
 
-}) (typeof exports === 'undefined' ? this.hcas = this.hcas || {} : exports);
+};

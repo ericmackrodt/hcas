@@ -1,7 +1,9 @@
-(function (hcas) {
+module.exports = function (hcas) {
 	"use strict";
 
-	hcas.control("Hyperlink", function(api) {
+	var utils = require('../hcas.utils.js');
+
+	hcas.defineControl("Hyperlink", function(api) {
 		return {
 			attributes: {
 				content: {
@@ -9,7 +11,7 @@
 				},
 				url: {
 					render: function(value) {
-						return hcas.formatString(' href="{0}"', value);
+						return utils.formatString(' href="{0}"', value);
 					}
 				}
 			},
@@ -21,4 +23,4 @@
 		};
 	});
 
-}) (typeof exports === 'undefined' ? this.hcas = this.hcas || {} : exports);
+};

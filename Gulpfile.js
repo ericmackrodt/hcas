@@ -2,7 +2,6 @@ var gulp = require('gulp');
 var jshint = require('gulp-jshint');
 var istanbul = require('gulp-istanbul');
 var mocha = require('gulp-mocha');
-var concat = require('gulp-concat');
 var coveralls = require('gulp-coveralls');
 
 gulp.task('jshint', function () {
@@ -12,7 +11,7 @@ gulp.task('jshint', function () {
 });
 
 gulp.task('istanbul', function () {
-  return gulp.src(['./_build/hcas.node.js'])
+  return gulp.src('./src/*.js')
     .pipe(istanbul())
     .pipe(istanbul.hookRequire());
 });
@@ -34,16 +33,10 @@ gulp.task('mocha', ['istanbul'], function () {
         }));
 });
 
-gulp.task('concat', function () {
-	return gulp.src('src/**/*.js')
-        .pipe(concat('hcas.node.js'))
-        .pipe(gulp.dest('./_build'));
-});
-
 gulp.task('coveralls', function() {
 	return gulp.src('./tests/_coverage/lcov.info')
   		.pipe(coveralls());
 });
 
-gulp.task('default', ['jshint', 'concat', 'mocha']);
+gulp.task('default', ['jshint', 'mocha']);
 gulp.task('travis', ['jshint', 'mocha', 'coveralls']);

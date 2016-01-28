@@ -1,7 +1,7 @@
-(function (hcas) {
+module.exports = function (hcas) {
 	"use strict";
 	
-	hcas.control("Header", function(api) {
+	hcas.defineControl("Header", function(api) {
 		return {
 			attributes: {
 				text: {
@@ -16,4 +16,4 @@
 		};
 	});
 
-}) (typeof exports === 'undefined' ? this.hcas = this.hcas || {} : exports);
+};
