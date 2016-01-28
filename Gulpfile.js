@@ -3,6 +3,8 @@ var jshint = require('gulp-jshint');
 var istanbul = require('gulp-istanbul');
 var mocha = require('gulp-mocha');
 var coveralls = require('gulp-coveralls');
+var watch = require('gulp-watch');
+var batch = require('gulp-batch');
 
 gulp.task('jshint', function () {
 	return gulp.src(['Gulpfile.js', './src/**/*.js'])
@@ -36,6 +38,12 @@ gulp.task('mocha', ['istanbul'], function () {
 gulp.task('coveralls', ['mocha'], function() {
 	return gulp.src('./tests/_coverage/lcov.info')
   		.pipe(coveralls());
+});
+
+gulp.task('watch', function () {
+    watch('./src/**/*.js', batch(function (events, done) {
+        gulp.start('jshint', done);
+    }));
 });
 
 gulp.task('default', ['jshint', 'mocha']);

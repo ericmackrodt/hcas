@@ -99,7 +99,7 @@ module.exports = (function () {
 		    	finishedCallback = callback;
 		    	parser.write(document).close();
 		    }
-		}
+		};
 	};
 
 })();//typeof exports === 'undefined' ? self.hcas = self.hcas || {} : exports);
