@@ -35,9 +35,9 @@ gulp.task('mocha', ['istanbul'], function () {
 });
 
 gulp.task('concat', function () {
-	return gulp.src('./src/**/*.js')
+	return gulp.src('src/**/*.js')
         .pipe(concat('hcas.node.js'))
-        .pipe(gulp.dest('_build'));
+        .pipe(gulp.dest('./_build'));
 });
 
 gulp.task('coveralls', function() {
@@ -46,4 +46,4 @@ gulp.task('coveralls', function() {
 });
 
 gulp.task('default', ['jshint', 'concat', 'mocha']);
-gulp.task('travis', ['jshint', 'concat', 'mocha', 'coveralls']);
+gulp.task('travis', ['jshint', 'mocha', 'coveralls']);
