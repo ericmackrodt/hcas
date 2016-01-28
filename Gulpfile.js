@@ -33,10 +33,10 @@ gulp.task('mocha', ['istanbul'], function () {
         }));
 });
 
-gulp.task('coveralls', function() {
+gulp.task('coveralls', ['mocha'], function() {
 	return gulp.src('./tests/_coverage/lcov.info')
   		.pipe(coveralls());
 });
 
 gulp.task('default', ['jshint', 'mocha']);
-gulp.task('travis', ['jshint', 'mocha', 'coveralls']);
+gulp.task('travis', ['jshint', 'coveralls']);
