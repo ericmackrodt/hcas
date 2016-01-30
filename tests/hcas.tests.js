@@ -29,9 +29,9 @@ describe('Hcas', function () {
 				_registryInstance.defineControl('Control', function() {
 					return {
 
-					}
+					};
 				});
-			}
+			};
 			expect(sut).to.throw('Control (Control) does not have a "render" function');
 		});
 
@@ -40,7 +40,7 @@ describe('Hcas', function () {
 				_registryInstance.defineControl(function () {
 					return {
 						render: function () {}
-					}
+					};
 				});
 			};
 
@@ -60,13 +60,13 @@ describe('Hcas', function () {
 				_registryInstance.defineControl("Control", function () {
 					return {
 						render: function () {}
-					}
+					};
 				});
 
 				_registryInstance.defineControl("Control", function () {
 					return {
 						render: function () {}
-					}
+					};
 				});
 			};
 
@@ -85,7 +85,7 @@ describe('Hcas', function () {
 			var implementation = function () {
 				return {
 					render: function () {}
-				}
+				};
 			};
 
 			_registryInstance.defineControl("Control", implementation);

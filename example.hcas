@@ -1,4 +1,9 @@
 <Page>
+	<Page.Header>
+		<Grid>
+			<Header text="App Title" size="full" />
+		</Grid>
+	</Page.Header>
 	
 	<StackPanel orientation="vertical" 
 				horizontalAlign="stretch" 
@@ -19,4 +24,7 @@
 
 	</StackPanel>
 
+	<Page.Footer>
+		<TextBlock text="This is a footer" />
+	</Page.Footer>
 </Page>

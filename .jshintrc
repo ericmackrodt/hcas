@@ -1,0 +1,9 @@
+{
+    "globals" : {
+        "exports": true
+    },
+    "node": true,
+    "mocha": true,
+    "maxparams": 4,
+    "expr": true
+}

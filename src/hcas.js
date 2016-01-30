@@ -1,55 +1,53 @@
-﻿(function (self) {
-	"use strict";
+﻿"use strict";
 
-	var defaultControlsFolder = './Controls/';
-	var parser = require('./hcas.parser.js');
-	var utils = require('./hcas.utils.js');
+var defaultControlsFolder = './Controls/';
+var parser = require('./hcas.parser.js');
+var utils = require('./hcas.utils.js');
 
-	//A Control Registry object so it's easier to test.
-	self.ControlRegistry = function () {
-		var registeredControls = {};
+var hcas = module.exports = {};
 
-		this.defineControl = function (type, structure) {
-			if (!type || typeof type != "string")
-				throw new Error("Cannot register a control without a type name");
+//A Control Registry object so it's easier to test.
+hcas.ControlRegistry = function () {
+	var registeredControls = {};
 
-			if (!structure || typeof structure != "function")
-				throw new Error(utils.formatString('The Control ({0}) does not have an implementation', type));
+	this.defineControl = function (type, structure) {
+		if (!type || typeof type != "string")
+			throw new Error("Cannot register a control without a type name");
 
-			if (registeredControls[type])
-				throw new Error(utils.formatString('Cannot add two controls of the same type ({0})', type));
+		if (!structure || typeof structure != "function")
+			throw new Error(utils.formatString('The Control ({0}) does not have an implementation', type));
 
-			var el = structure();
+		if (registeredControls[type])
+			throw new Error(utils.formatString('Cannot add two controls of the same type ({0})', type));
 
-			if (!el || typeof el.render != 'function')
-				throw new Error(utils.formatString('Control ({0}) does not have a "render" function', type));
+		var el = structure();
 
-			el.type = type;
-			registeredControls[type] = el;
-		};
+		if (!el || typeof el.render != 'function')
+			throw new Error(utils.formatString('Control ({0}) does not have a "render" function', type));
 
-		this.retrieveControl = function (type) {
-			var el = registeredControls[type];
-			if (!el)
-				throw utils.formatString("Control ({0}) does not exist", type);
-
-			return el;
-		};
+		el.type = type;
+		registeredControls[type] = el;
 	};
 
-	//Keeps a singleton for control registration.
-	var _controlRegistry = new self.ControlRegistry();
+	this.retrieveControl = function (type) {
+		var el = registeredControls[type];
+		if (!el)
+			throw utils.formatString("Control ({0}) does not exist", type);
 
-	//Exposing registry's methods.
-	self.defineControl = _controlRegistry.defineControl;
-	self.retrieveControl = _controlRegistry.retrieveControl;
-	self.parse = parser(_controlRegistry).parse;
+		return el;
+	};
+};
 
-	var normalizedPath = require("path").join(__dirname, "Controls");
+//Keeps a singleton for control registration.
+var _controlRegistry = new hcas.ControlRegistry();
 
-	require("fs").readdirSync(normalizedPath).forEach(function(file) {
-	  	console.log(file);
-		require(defaultControlsFolder + file)(self);
-	});
+//Exposing registry's methods.
+hcas.defineControl = _controlRegistry.defineControl;
+hcas.parse = parser(_controlRegistry).parse;
 
-}) (typeof exports === 'undefined' ? self.hcas = self.hcas || {} : exports);
+//This is not definitive
+var normalizedPath = require("path").join(__dirname, "Controls");
+require("fs").readdirSync(normalizedPath).forEach(function(file) {
+  	console.log(file);
+	require(defaultControlsFolder + file)(hcas);
+});

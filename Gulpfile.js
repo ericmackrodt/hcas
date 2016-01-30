@@ -7,7 +7,7 @@ var watch = require('gulp-watch');
 var batch = require('gulp-batch');
 
 gulp.task('jshint', function () {
-	return gulp.src(['Gulpfile.js', './src/**/*.js'])
+	return gulp.src(['./src/**/*.js', './tests/*.js'])
         .pipe(jshint())
         .pipe(jshint.reporter('default'));
 });
