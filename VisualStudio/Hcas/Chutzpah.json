@@ -1,7 +1,0 @@
-﻿{
-    "Framework": "mocha",
-    "MochaInterface": "bdd",
-    "References" : [
-      { "Path": "chai.js" }
-    ]
-}
