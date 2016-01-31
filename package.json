@@ -25,6 +25,7 @@
     "jshint": "^2.9.1"
   },
   "dependencies": {
-    "sax": "^1.1.4"
+    "sax": "^1.1.4",
+    "underscore": "^1.8.3"
   }
 }

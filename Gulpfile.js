@@ -41,7 +41,7 @@ gulp.task('coveralls', ['mocha'], function() {
 });
 
 gulp.task('watch', function () {
-    watch('./src/**/*.js', batch(function (events, done) {
+    watch(['./src/**/*.js', './tests/*.js'], batch(function (events, done) {
         gulp.start('jshint', done);
     }));
 });
