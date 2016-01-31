@@ -8,10 +8,10 @@ module.exports = function (hcas) {
 					isContent: true
 				}
 			},
-			render: function (renderApi) {
-				renderApi.startRoot('h1');
-				renderApi.writeContent();
-				renderApi.endRoot();
+			render: function (builder, data) {
+				builder.openTag('h1');
+				builder.write(data.content);
+				builder.closeTag('h1');
 			}
 		};
 	});

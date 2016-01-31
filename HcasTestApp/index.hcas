@@ -19,11 +19,7 @@
         <TextBlock text="TextBlock with normal text property" />
       </StackPanel>  
       
-      <TextBlock>
-			  <!--TextBlock.Text>
-				  Before Text: This is a full, hardcoded paragraph where you can write full texts in the way you want.
-			  </TextBlock.Text-->
-		  </TextBlock>
+      <TextBlock text="Before Text: This is a full, hardcoded paragraph where you can write full texts in the way you want." />
       
       <Button content="Button" />
     

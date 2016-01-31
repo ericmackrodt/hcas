@@ -9,10 +9,10 @@ module.exports = function (hcas) {
 				}
 			},
 			allowsControls: true,
-			render: function (renderApi) {
-				renderApi.startRoot('p');
-				renderApi.writeContent();
-				renderApi.endRoot();
+			render: function (builder, data) {
+				builder.openTag('p');
+				builder.write(data.content);
+				builder.closeTag('p');
 			}
 		};
 	});

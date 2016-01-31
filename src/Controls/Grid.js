@@ -10,10 +10,10 @@ module.exports = function (hcas) {
 					render: function() {}
 				}
 			},
-			render: function (renderApi) {
-				renderApi.startRoot('div');
-				renderApi.renderChildren();
-				renderApi.endRoot();
+			render: function (builder) {
+				builder.openTag('div');
+				builder.childrenPlacement();
+				builder.closeTag('div');
 			}
 		};
 	});

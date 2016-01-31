@@ -12,7 +12,7 @@ module.exports = function (hcas) {
 				Text: "text"
 			},
 			allowControls: true,
-			render: function (renderApi) {
+			render: function (renderApi, data) {
 
 			}
 		};

@@ -26,10 +26,10 @@ module.exports = function (hcas) {
 				Title: "title"
 			},
 			allowsControls: true,
-			render: function (renderApi) {
-				renderApi.startRoot('div');
-				renderApi.renderChildren();
-				renderApi.endRoot();
+			render: function (builder, data) {
+				builder.openTag('div');
+				builder.childrenPlacement();
+				builder.closeTag('div');
 			}
 		};
 	});

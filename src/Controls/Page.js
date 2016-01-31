@@ -16,15 +16,15 @@
 			},
 			isRoot: true,
 			allowsControls: true,
-			render: function (renderApi) {
-				renderApi.write('<!DOCTYPE html>');
-				renderApi.startRoot('html');
-				renderApi.write('<head>');
-				renderApi.write('</head>');
-				renderApi.write('<body>');
-				renderApi.renderChildren();
-				renderApi.write('</body>');
-				renderApi.endRoot();
+			render: function (builder, data) {
+				builder.write('<!DOCTYPE html>');
+				builder.openTag('html');
+				builder.openTag('head');
+				builder.closeTag('head');
+				builder.openTag('body');
+				builder.childrenPlacement();
+				builder.closeTag('body');
+				builder.closeTag('html');
 			}
 		};
 	});

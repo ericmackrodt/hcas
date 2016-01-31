@@ -3,68 +3,28 @@
 "use strict";
 
 var utils = require('./hcas.utils.js');
+var HtmlBuilder = require('./hcas.htmlBuilder.js');
 
 var Control = function (structure) {
 	var children = [];
 	var content = null;
 	var html = [];
 	var attributes = {};
+	//TODO: HTMLBUILDER HAS TO ADD THE data-hcastype ATTRIBUTES! 
+	var htmlBuilder = new HtmlBuilder();
+	
+	htmlBuilder.onChildrenCall = function () {
+        var childrenHtml = [];
+        for (var i in children) {
+            var child = children[i];
+            childrenHtml.push(child.render());
+        }
+        return childrenHtml.join('\n'); //don't know if \n will be really necessary
+	};
+
 	var defaultAttributes = {
 		'name': function (value) {
 			
-		}
-	};
-
-	//Review these variables
-	var isRootWritten = false;
-	var rootEl;
-
-	//Create an HTMLWRITER object
-	var renderApi = {
-		startRoot: function(el, shouldRenderAttributes) {
-			if (isRootWritten)
-				throw "You cannot write the Root control twice";
-
-			var renderAttributes = function() {
-				var attrs = Object.keys(attributes);
-				for (var i in attrs) {
-					var key = attrs[i];
-					var attr = structure.attributes[key];
-					var value = attributes[key];
-					return attr.render(value);
-				}
-			};
-			
-			//CHANGE THE WAY ATTRIBUTES ARE Rendering!!
-			var root = ['<', el, ' data-hcasType="', structure.type, '"' + (shouldRenderAttributes ? renderAttributes() : '') + '>'].join('');
-			rootEl = el;
-			html.push(root);
-		},
-		endRoot: function() {
-			if (!rootEl)
-				throw utils.formatString("No root control to render in ({0})", structure.type);
-
-			html.push(['</', rootEl, '>'].join(''));
-			isRootWritten = true;
-		},
-		write: function(content) {
-			html.push(content);
-		},
-		renderChildren: function() {
-			for (var i in children) {
-				var child = children[i];
-				html.push(child.render());
-			}
-		},
-		writeContent: function() {
-			html.push(content);
-		},
-		writeAttributes: function() {
-			for (var key in Object.keys(attributes)) {
-				var attr = structure.attributes[key];
-				var value = attributes[key];
-				html.push(attr.render(value));
-			}
 		}
 	};
 
@@ -108,13 +68,9 @@ var Control = function (structure) {
 
 	this.render = function () {
 		console.log('Rendering:', structure.type);
+		structure.render(htmlBuilder, { content: content });
 
-		structure.render(renderApi);
-
-		if (!isRootWritten)
-			throw utils.formatString("You have to write a Root control for ({0})", structure.type);
-
-		return html.join('\n');
+		return htmlBuilder.build();
 	};
 };
 

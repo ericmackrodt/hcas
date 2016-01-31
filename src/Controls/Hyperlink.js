@@ -15,10 +15,10 @@ module.exports = function (hcas) {
 					}
 				}
 			},
-			render: function (renderApi) {
-				renderApi.startRoot('a', true);
-				renderApi.writeContent();
-				renderApi.endRoot();
+			render: function (builder, data) {
+				builder.openTag('a');
+				builder.write(data.content);
+				builder.closeTag('a');
 			}
 		};
 	});
