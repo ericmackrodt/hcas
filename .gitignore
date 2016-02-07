@@ -31,3 +31,5 @@ output/
 _output/
 _build/
 _coverage/
+bin/
+obj/
