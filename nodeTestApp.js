@@ -15,7 +15,7 @@ var router = express.Router();
 
 router.get('/', function (req, res) {
     console.log('Rendering view...')
-    res.render('index.hcas', { title: 'Hey', message: 'Hello there!'});
+    res.render('index.hcas', { title: 'Bound title', message: 'Hello there!'});
 });
 
 // router.get('/', function (req, res) {

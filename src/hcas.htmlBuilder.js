@@ -48,7 +48,7 @@ var HtmlBuilder = function () {
 			return buildTag(item);
 		else if (item.$endTag)
 			return buildEndTag(item);
-		else if (item.$raw)
+		else if (item.$raw || typeof item.$raw === 'string')
 			return item.$raw;
 		else if (item.$childrenPlacement) 
 			return item.$childrenPlacement();

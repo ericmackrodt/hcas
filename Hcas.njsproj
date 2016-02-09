@@ -16,7 +16,6 @@
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
   <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
   <ItemGroup>
-    <Content Include="HcasTestApp\index.vash" />
     <Content Include="package.json" />
     <Content Include="README.md" />
     <Content Include="example.hcas" />

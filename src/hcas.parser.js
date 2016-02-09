@@ -4,7 +4,8 @@ var utils = require('./hcas.utils.js');
 var Control = require('./hcas.control.js');
 var sax = require('sax');
 
-var repository;
+var controlRepository;
+var documentBindings = {};
 
 var tree = {
 	name: "HcasDocument",
@@ -36,9 +37,19 @@ function getPreviousNode() {
   	return nodeObj;
 }
 
+function parseBinding(value) {
+    var regex = /^{\s*binding\s+(\w+)\s*}$/g;
+    var match = regex.exec(value);
+    if (match !== null) {
+        var key = match[1];
+        return documentBindings[key] || '';
+    }
+
+    return value;
+}
 
 parser.onattribute = function (attr) {
-  	currentAttributes[attr.name] = attr.value;
+    currentAttributes[attr.name] = parseBinding(attr.value);
   	
   	logTree(attr.name);	
 };
@@ -46,7 +57,7 @@ parser.onattribute = function (attr) {
 parser.onopentag = function (tag) {
   	var node = getPreviousNode();
 
-  	var ct = repository.retrieveControl(tag.name);
+  	var ct = controlRepository.retrieveControl(tag.name);
   	var control = new Control(ct);
   	levels.push(control);
 
@@ -93,11 +104,12 @@ parser.onend = function () {
   	finishedCallback(tree);
 };
 
-module.exports = function(repo) {
-	repository = repo;
+module.exports = function(repository) {
+	controlRepository = repository;
 	return {
-		parse: function (document, callback) {
-	    	finishedCallback = callback;
+		parse: function (document, bindings, callback) {
+            finishedCallback = callback;
+            documentBindings = bindings;
 	    	parser.write(document).close();
 	    }
 	};

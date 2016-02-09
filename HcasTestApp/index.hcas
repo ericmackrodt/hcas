@@ -2,7 +2,7 @@
 	<StackPanel orientation="vertical" 
               horizontalAlign="stretch" 
               background="#000000">
-		<Header text="This is the Header" />
+		<Header text="{binding title}" />
     
     <Grid>
       <!--Grid.Columns>
@@ -16,7 +16,7 @@
   
       <StackPanel>
         <Button content="Button Top" />
-        <TextBlock text="TextBlock with normal text property" />
+        <TextBlock text="{binding message}" />
       </StackPanel>  
       
       <TextBlock text="Before Text: This is a full, hardcoded paragraph where you can write full texts in the way you want." />
