@@ -1,32 +1,21 @@
 var express = require('express');
 var fs = require('fs');
-var hcas = require('./');
+//var hcas = require('.');
 
 var app = express();
 
-var fs = require('fs'); // this engine requires the fs module
-app.engine('hcas', function (filePath, options, callback) { // define the template engine
-    fs.readFile(filePath, 'ascii', function (err, data) {
-        if (err) {
-            console.log("Could not open file" + err);
-            process.exit(1);
-        }
-
-        hcas.parse(data.substring(0, data.length), function(result) {
-            rendered = result.render();
-            return callback(null, rendered);
-        });
-    });
-});
-
 app.set('views', './HcasTestApp'); // specify the views directory
-app.set('view engine', 'hcas'); // register the template engine
+app.set('view engine', '../../../../index'); // register the template engine
+
+//because it's not possible to set up a different extension for a view engine,
+//making it IMPOSSIBLE to test it as a default engine.
+app.engine('hcas', require('.').__express);
 
 var router = express.Router();
 
 router.get('/', function (req, res) {
     console.log('Rendering view...')
-    res.render('index', { title: 'Hey', message: 'Hello there!'});
+    res.render('index.hcas', { title: 'Hey', message: 'Hello there!'});
 });
 
 // router.get('/', function (req, res) {
