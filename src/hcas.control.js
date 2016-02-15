@@ -10,6 +10,13 @@ var Control = function (structure) {
 	var content = null;
 	var html = [];
 	var attributes = {};
+
+	if (!structure)
+		throw new Error('A control needs to be instantiated with its configuration');
+
+	if (!structure.type)
+		throw new Error('A control has to have its type defined');
+
 	//TODO: HTMLBUILDER HAS TO ADD THE data-hcastype ATTRIBUTES! 
 	var htmlBuilder = new HtmlBuilder();
 	
@@ -39,6 +46,18 @@ var Control = function (structure) {
 			return structure.isRoot || false;
 		}
 	});
+
+	Object.defineProperty(this, "content", {
+		get: function () {
+			return content || '';
+		}
+	});
+
+	Object.defineProperty(this, "attributeValues", {
+		get: function () {
+			return attributes || [];
+		}
+	});
 	
 	Object.defineProperty(this, "children", {
 		get: function () {
@@ -54,7 +73,7 @@ var Control = function (structure) {
 		content = value;
 	};
 
-	this.addAttribute = function(name, value) {
+	this.setAttribute = function(name, value) {
 		if (!structure.attributes || !structure.attributes[name]) 
 			throw utils.formatString("Control of type ({0}) does not contain an attribute named ({1})", structure.type, name);
 
