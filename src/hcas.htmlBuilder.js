@@ -94,17 +94,26 @@ var HtmlBuilder = function (hcasType) {
 
 		if (!opened)
 			throw new Error(utils.formatString('You have to open a ({0}) tag before closing it', val));
+        
+        var openedTag = 
+            _.chain(htmlArray)
+            .filter(function (t) {
+                return typeof t.$tag === 'string' && !t.selfClosed && !t.isClosed;
+            })
+            .last()
+            .value();
 
-		var openedTag = _.last(htmlArray);
 		if (openedTag.$tag && openedTag.$tag !== val)
 			throw new Error(utils.formatString('You have to close ({0}) before closing ({1})', openedTag.$tag, val));
+        
+        //This is necessary to see if the current opened tag is the last one.
+		var lastTag = htmlArray[htmlArray.length - 1];
 
-		openedTag = htmlArray[htmlArray.length - 1];
-
-		if (openedTag.$tag === val) {
+		if (openedTag === lastTag) {
 			openedTag.selfClosed = true;
 		} else {
-			htmlArray.push({ '$endTag': val });
+            htmlArray.push({ '$endTag': val });
+            openedTag.isClosed = true;
         }
 
         return self;

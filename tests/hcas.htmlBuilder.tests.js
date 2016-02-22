@@ -121,7 +121,27 @@ describe('Hcas HtmlBuilder', function () {
 				htmlBuilder.closeTag('div');	
 			};
 			expect(fn).to.throw('You have to close (span) before closing (div)');
-		});
+        });
+
+        it('should close tag after selfClosingTag', function () {
+            htmlBuilder.openTag('div');
+            htmlBuilder.selfClosingTag('span');
+            htmlBuilder.closeTag('div');
+            var result = htmlBuilder.build();
+            result.should.equal("<div><span /></div>");
+        });
+
+        it('should be able to close two tags in a row with content', function () {
+            var result = htmlBuilder
+                .openTag('div')
+                .openTag('span')
+                .write('text')
+                .closeTag('span')
+                .closeTag('div')
+                .build();
+
+            result.should.equal("<div><span>text</span></div>");
+        });
     });
     
     describe('selfClosingTag', function () {
@@ -476,8 +496,7 @@ describe('Hcas HtmlBuilder', function () {
             return '<span class="child" />';
         };
         
-        var result = htmlBuilder
-            .addStylesheet('somestyle.css')
+        var result = htmlBuilder            
             .openTag('div')
             .addAttribute('data-someData', 'someData')
             .addAttributes({ 'attr1': 'attr1', 'attr2': 'attr2' })
@@ -488,6 +507,7 @@ describe('Hcas HtmlBuilder', function () {
             .addStyles({ display: 'none', position: 'relative' })
             .removeStyle('display')
             .addData('data1', 'data1')
+            .addStylesheet('somestyle.css')
             .childrenPlacement()
             .write('text')
             .writeLine('secondText')
@@ -495,6 +515,6 @@ describe('Hcas HtmlBuilder', function () {
             .selfClosingTag('span')
             .build();
 
-        result.should.equal('<link rel="stylesheet" type="text/css" href="somestyle.css" /><div data-someData="someData" attr1="attr1" attr2="attr2" class="otherClass" style="background: #FFFFFF; position: relative" data-data1="data1"><span class="child" />text\nsecondText</div><span />');
+        result.should.equal('<div data-someData="someData" attr1="attr1" attr2="attr2" class="otherClass" style="background: #FFFFFF; position: relative" data-data1="data1"><link rel="stylesheet" type="text/css" href="somestyle.css" /><span class="child" />text\nsecondText</div><span />');
     });
 });
