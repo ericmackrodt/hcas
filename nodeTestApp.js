@@ -4,8 +4,10 @@ var fs = require('fs');
 
 var app = express();
 
+app.use(express.static(__dirname + '/public'));
+
 app.set('views', './HcasTestApp'); // specify the views directory
-app.set('view engine', '../../../../index'); // register the template engine
+//app.set('view engine', '../../../../index'); // register the template engine
 
 //because it's not possible to set up a different extension for a view engine,
 //making it IMPOSSIBLE to test it as a default engine.
@@ -37,18 +39,3 @@ app.use('/', router);
 app.listen(3000, function () {
   console.log('Hcas app listening on port 3000');
 });
-
-var fs = require('fs'); // this engine requires the fs module
-
-app.engine('ntl', function (filePath, options, callback) { // define the template engine
-    fs.readFile(filePath, function (err, content) {
-    if (err) return callback(new Error(err));
-    // this is an extremely simple template engine
-    var rendered = content.toString().replace('#title#', ''+ options.title +'')
-        .replace('#message#', ''+ options.message +'');
-    return callback(null, rendered);
-    });
-});
-
-app.set('views', './views'); // specify the views directory
-app.set('view engine', 'ntl'); // register the template engine

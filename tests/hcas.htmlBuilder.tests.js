@@ -46,7 +46,7 @@ describe('Hcas HtmlBuilder', function () {
 		});
 	});
 
-	describe('openTag', function() {
+	describe('openTag', function() {        
 		it('should throw exception if empty', function() {
 			expect(htmlBuilder.openTag).to.throw('You have to specify a tag name');
 		});
@@ -56,6 +56,33 @@ describe('Hcas HtmlBuilder', function () {
 			var result = htmlBuilder.build();
 			result.should.equal("<div>");
 		});
+        
+        it('should show data-hcastype on tag', function () {
+            htmlBuilder = new HtmlBuilder('SomeType');
+            htmlBuilder.openTag('div');
+            var result = htmlBuilder.build();
+            result.should.equal('<div data-hcastype="SomeType">');
+        });
+        
+        it('should show data-hcastype only on first tag', function () {
+            htmlBuilder = new HtmlBuilder('SomeType');
+            htmlBuilder.openTag('div');
+            htmlBuilder.openTag('span');
+            var result = htmlBuilder.build();
+            result.should.equal('<div data-hcastype="SomeType"><span>');
+        });
+
+        it('should be able to open tags with an attribute', function () {
+            htmlBuilder.openTag('div', { 'class': 'someClass' });
+            var result = htmlBuilder.build();
+            result.should.equal('<div class="someClass">');
+        });
+
+        it('should be able to open tags with multiple attributes', function () {
+            htmlBuilder.openTag('div', { 'class': 'someClass', 'style': 'background: #FFFFFF', 'data-someData': 'someData' });
+            var result = htmlBuilder.build();
+            result.should.equal('<div class="someClass" style="background: #FFFFFF" data-someData="someData">');
+        });
 	});
 
 	describe('closeTag', function() {
@@ -95,7 +122,38 @@ describe('Hcas HtmlBuilder', function () {
 			};
 			expect(fn).to.throw('You have to close (span) before closing (div)');
 		});
-	});
+    });
+    
+    describe('selfClosingTag', function () {
+        it('should throw exception if empty', function () {
+            expect(htmlBuilder.selfClosingTag).to.throw('You have to specify a tag name');
+        });
+        
+        it('should add a self-closing tag', function () {
+            htmlBuilder.selfClosingTag('div');
+            var result = htmlBuilder.build();
+            result.should.equal("<div />");
+        });
+        
+        it('should show data-hcastype on self-closing tag', function () {
+            htmlBuilder = new HtmlBuilder('SomeType');
+            htmlBuilder.selfClosingTag('div');
+            var result = htmlBuilder.build();
+            result.should.equal('<div data-hcastype="SomeType" />');
+        });
+        
+        it('should be able to open self-closing tags with an attribute', function () {
+            htmlBuilder.selfClosingTag('div', { 'class': 'someClass' });
+            var result = htmlBuilder.build();
+            result.should.equal('<div class="someClass" />');
+        });
+        
+        it('should be able to open self-closing tags with multiple attributes', function () {
+            htmlBuilder.selfClosingTag('div', { 'class': 'someClass', 'style': 'background: #FFFFFF', 'data-someData': 'someData' });
+            var result = htmlBuilder.build();
+            result.should.equal('<div class="someClass" style="background: #FFFFFF" data-someData="someData" />');
+        });
+    });
 
 	describe('addAttribute', function() {
 		it('should throw exception if no key', function() {
@@ -403,5 +461,13 @@ describe('Hcas HtmlBuilder', function () {
 			var result = htmlBuilder.build();
 			result.should.equal('<a data-attr1="value1" data-attr2="value2" />');
 		});
-	});	
+    });
+
+    describe('addStylesheet', function () {        
+        it('should add a stylesheet', function () {
+            htmlBuilder.addStylesheet('somestyle.css');
+            var result = htmlBuilder.build();
+            result.should.equal('<link rel="stylesheet" type="text/css" href="somestyle.css" />');
+        });
+    });
 });

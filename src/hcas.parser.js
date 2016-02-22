@@ -75,7 +75,7 @@ parser.onopentag = function (tag) {
 
   	if (Object.keys(currentAttributes).length > 0) {
   		for (var attr in currentAttributes) {
-  			control.addAttribute(attr, currentAttributes[attr]);
+  			control.setAttribute(attr, currentAttributes[attr]);
   		}
 
   		currentAttributes = {};

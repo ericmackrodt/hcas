@@ -16,9 +16,8 @@ var Control = function (structure) {
 
 	if (!structure.type)
 		throw new Error('A control has to have its type defined');
-
-	//TODO: HTMLBUILDER HAS TO ADD THE data-hcastype ATTRIBUTES! 
-	var htmlBuilder = new HtmlBuilder();
+ 
+	var htmlBuilder = new HtmlBuilder(structure.type);
 	
 	htmlBuilder.onChildrenCall = function () {
         var childrenHtml = [];

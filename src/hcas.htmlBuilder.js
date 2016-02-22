@@ -4,11 +4,16 @@
 var utils = require('./hcas.utils.js');
 var _ = require('underscore');
 
-var HtmlBuilder = function () {
-	var htmlArray = [];
+var HtmlBuilder = function (hcasType) {
+    var self = this;
+    var htmlArray = [];
+    var firstTag = true;
 
 	function buildTag(tag) {
 		var result = '<' + tag.$tag;
+        
+        if (hcasType && firstTag)
+            result += utils.formatString(' data-hcastype="{0}"', hcasType);
 
 		if (tag.$attributes && Object.keys(tag.$attributes).length) {
 			for (var attrKey in tag.$attributes) {
@@ -36,6 +41,7 @@ var HtmlBuilder = function () {
 		}
 
 		result += tag.selfClosed ? ' />' : '>';
+        firstTag = false;
 		return result;
 	}
 
@@ -62,11 +68,17 @@ var HtmlBuilder = function () {
 		htmlArray.push({ '$raw': '\n' + (val || '') });
 	};
 
-	this.openTag = function(val) {
+	this.openTag = function(val, attrs) {
 		if (!val)
 			throw new Error('You have to specify a tag name');
 
-		htmlArray.push({ '$tag': val });
+        htmlArray.push({ '$tag': val });
+
+        if (typeof attrs === 'object') {
+            for (var key in attrs) {
+                self.addAttribute(key, attrs[key]);
+            }
+        }
 	};
 
 	this.closeTag = function(val) {
@@ -91,7 +103,12 @@ var HtmlBuilder = function () {
 		} else {
 			htmlArray.push({ '$endTag': val });
 		}
-	};
+    };
+    
+    this.selfClosingTag = function (name, attrs) {
+        self.openTag(name, attrs);
+        self.closeTag(name);
+    }
 
 	this.addAttribute = function(key, value) {
 		if (!key)
@@ -173,7 +190,7 @@ var HtmlBuilder = function () {
 	};
 
 	this.childrenPlacement = function() {
-		htmlArray.push({ $childrenPlacement: this.onChildrenCall });
+		htmlArray.push({ $childrenPlacement: self.onChildrenCall });
 	};
 
 	this.addData = function(key, value) {
@@ -192,7 +209,15 @@ var HtmlBuilder = function () {
 		var openedTag = htmlArray[htmlArray.length - 1];
 		openedTag.$data = openedTag.$data || {};
 		openedTag.$data[key] = value;
-	};
+    };
+    
+    this.addStylesheet = function (cssPath) {
+        self.selfClosingTag('link', {
+            'rel': 'stylesheet',
+            'type': 'text/css',
+            'href': cssPath
+        });
+    };
 
 	this.getArray = function() {
 		return htmlArray;
