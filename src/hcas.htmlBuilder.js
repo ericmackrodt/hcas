@@ -61,11 +61,13 @@ var HtmlBuilder = function (hcasType) {
 	}
 
 	this.write = function(val) {
-		htmlArray.push({ '$raw': val });
+        htmlArray.push({ '$raw': val });
+        return self;
 	};
 
 	this.writeLine = function(val) {
-		htmlArray.push({ '$raw': '\n' + (val || '') });
+        htmlArray.push({ '$raw': '\n' + (val || '') });
+        return self;
 	};
 
 	this.openTag = function(val, attrs) {
@@ -79,6 +81,7 @@ var HtmlBuilder = function (hcasType) {
                 self.addAttribute(key, attrs[key]);
             }
         }
+        return self;
 	};
 
 	this.closeTag = function(val) {
@@ -102,12 +105,14 @@ var HtmlBuilder = function (hcasType) {
 			openedTag.selfClosed = true;
 		} else {
 			htmlArray.push({ '$endTag': val });
-		}
+        }
+
+        return self;
     };
     
     this.selfClosingTag = function (name, attrs) {
         self.openTag(name, attrs);
-        self.closeTag(name);
+        return self.closeTag(name);
     }
 
 	this.addAttribute = function(key, value) {
@@ -130,7 +135,8 @@ var HtmlBuilder = function (hcasType) {
 
 		var openedTag = htmlArray[htmlArray.length - 1];
 		openedTag.$attributes = openedTag.$attributes || {};
-		openedTag.$attributes[key] = value;
+        openedTag.$attributes[key] = value;
+        return self;
 	};
 
 	this.addAttributes = function(obj) {
@@ -138,7 +144,9 @@ var HtmlBuilder = function (hcasType) {
 		openedTag.$attributes = openedTag.$attributes || {};
 
 		for (var key in obj)
-			openedTag.$attributes[key] = obj[key];
+            openedTag.$attributes[key] = obj[key];
+
+        return self;
 	};
 
 	this.addClass = function(cl) {
@@ -146,14 +154,18 @@ var HtmlBuilder = function (hcasType) {
 
 		var openedTag = _.last(htmlArray);
 		openedTag.$classes = openedTag.$classes || [];
-		openedTag.$classes.push(cl);		
+        openedTag.$classes.push(cl);
+
+        return self;
 	};
 
 	this.removeClass = function(cl) {
 		var openedTag = _.last(htmlArray);
 		openedTag.$classes = openedTag.$classes || [];
 		if (openedTag.$classes.indexOf(cl) > -1)
-			openedTag.$classes.splice(openedTag.$classes.indexOf(cl), 1);		
+            openedTag.$classes.splice(openedTag.$classes.indexOf(cl), 1);
+        
+        return self;	
 	};
 
 	this.addStyle = function(key, value) {
@@ -165,7 +177,9 @@ var HtmlBuilder = function (hcasType) {
 
 		var openedTag = htmlArray[htmlArray.length - 1];
 		openedTag.$styles = openedTag.$styles || {};
-		openedTag.$styles[key] = value;
+        openedTag.$styles[key] = value;
+
+        return self;
 	};
 
 	this.addStyles = function(obj) {
@@ -173,7 +187,9 @@ var HtmlBuilder = function (hcasType) {
 		openedTag.$styles = openedTag.$styles || {};
 		
 		for (var key in obj)
-			openedTag.$styles[key] = obj[key];
+            openedTag.$styles[key] = obj[key];
+
+        return self;
 	};
 
 	this.removeStyle = function(key) {
@@ -186,11 +202,15 @@ var HtmlBuilder = function (hcasType) {
 		if (Object.keys(openedTag.$styles).length === 0) {
 			openedTag.$styles = null;
 			delete openedTag.$styles;
-		}
+        }
+
+        return self;
 	};
 
 	this.childrenPlacement = function() {
-		htmlArray.push({ $childrenPlacement: self.onChildrenCall });
+        htmlArray.push({ $childrenPlacement: self.onChildrenCall });
+
+        return self;
 	};
 
 	this.addData = function(key, value) {
@@ -208,11 +228,13 @@ var HtmlBuilder = function (hcasType) {
 
 		var openedTag = htmlArray[htmlArray.length - 1];
 		openedTag.$data = openedTag.$data || {};
-		openedTag.$data[key] = value;
+        openedTag.$data[key] = value;
+
+        return self;
     };
     
     this.addStylesheet = function (cssPath) {
-        self.selfClosingTag('link', {
+        return self.selfClosingTag('link', {
             'rel': 'stylesheet',
             'type': 'text/css',
             'href': cssPath

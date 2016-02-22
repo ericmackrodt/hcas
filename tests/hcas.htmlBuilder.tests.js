@@ -470,4 +470,31 @@ describe('Hcas HtmlBuilder', function () {
             result.should.equal('<link rel="stylesheet" type="text/css" href="somestyle.css" />');
         });
     });
+
+    it('should allow fluent calls', function () {
+        htmlBuilder.onChildrenCall = function () {
+            return '<span class="child" />';
+        };
+        
+        var result = htmlBuilder
+            .addStylesheet('somestyle.css')
+            .openTag('div')
+            .addAttribute('data-someData', 'someData')
+            .addAttributes({ 'attr1': 'attr1', 'attr2': 'attr2' })
+            .addClass('someClass')
+            .addClass('otherClass')
+            .removeClass('someClass')
+            .addStyle('background', '#FFFFFF')
+            .addStyles({ display: 'none', position: 'relative' })
+            .removeStyle('display')
+            .addData('data1', 'data1')
+            .childrenPlacement()
+            .write('text')
+            .writeLine('secondText')
+            .closeTag('div')
+            .selfClosingTag('span')
+            .build();
+
+        result.should.equal('<link rel="stylesheet" type="text/css" href="somestyle.css" /><div data-someData="someData" attr1="attr1" attr2="attr2" class="otherClass" style="background: #FFFFFF; position: relative" data-data1="data1"><span class="child" />text\nsecondText</div><span />');
+    });
 });
