@@ -87,8 +87,8 @@ describe('Hcas', function () {
 							isContent: true
 						},
 						attrValue: {
-							render: function(api) {
-								return 'attr="attr"';
+							value: function(value) {
+								return value;
 							}
 						}
 					}

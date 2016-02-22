@@ -10,13 +10,17 @@ module.exports = function (hcas) {
 					isContent: true
 				},
 				url: {
-					render: function(value) {
-						return utils.formatString(' href="{0}"', value);
+					value: function(value) {
+						return value;
 					}
 				}
 			},
 			render: function (builder, data) {
-				builder.openTag('a');
+                builder.openTag('a');
+                
+                if (data.attributes.url)
+                    builder.addAttribute('href', data.attributes.url);
+
 				builder.write(data.content);
 				builder.closeTag('a');
 			}

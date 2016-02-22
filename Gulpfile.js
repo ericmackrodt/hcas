@@ -5,6 +5,16 @@ var mocha = require('gulp-mocha');
 var coveralls = require('gulp-coveralls');
 var watch = require('gulp-watch');
 var batch = require('gulp-batch');
+var less = require('gulp-less');
+var path = require('path');
+
+gulp.task('less', function () {
+    return gulp.src('./less/**/*.less')
+    .pipe(less({
+        //paths: [path.join(__dirname, 'less', 'includes')]
+    }))
+    .pipe(gulp.dest('./public/css/hcas'));
+});
 
 gulp.task('jshint', function () {
 	return gulp.src(['./src/**/*.js', './tests/*.js'])

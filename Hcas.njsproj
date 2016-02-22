@@ -16,6 +16,7 @@
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
   <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
   <ItemGroup>
+    <Content Include="less\hcas.less" />
     <Content Include="package.json" />
     <Content Include="README.md" />
     <Content Include="example.hcas" />
@@ -28,6 +29,7 @@
     <Compile Include="src\hcas.js" />
     <Compile Include="src\hcas.parser.js" />
     <Compile Include="src\hcas.utils.js" />
+    <Compile Include="tests\hcas.control.tests.js" />
     <Compile Include="tests\hcas.htmlBuilder.tests.js" />
     <Compile Include="tests\hcas.tests.js" />
     <Compile Include="tests\hcas.utils.tests.js" />
@@ -55,6 +57,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="HcasTestApp" />
+    <Folder Include="less\" />
+    <Folder Include="public\" />
+    <Folder Include="public\css\" />
     <Folder Include="src" />
     <Folder Include="src\Controls" />
     <Folder Include="tests" />

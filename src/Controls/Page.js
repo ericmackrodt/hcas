@@ -6,8 +6,8 @@
 			attributes: {
 				title: {
 					isContent: false,
-					render: function (renderApi) {
-
+					value: function (value) {
+                        return value;
 					}
 				}
 			},
@@ -17,14 +17,16 @@
 			isRoot: true,
 			allowsControls: true,
 			render: function (builder, data) {
-				builder.write('<!DOCTYPE html>');
-				builder.openTag('html');
-				builder.openTag('head');
-				builder.closeTag('head');
-				builder.openTag('body');
-				builder.childrenPlacement();
-				builder.closeTag('body');
-				builder.closeTag('html');
+                builder
+                    .write('<!DOCTYPE html>')
+				    .openTag('html')
+                    .openTag('head')
+                    .addStylesheet('/css/hcas/hcas.css')
+				    .closeTag('head')
+				    .openTag('body')
+				    .childrenPlacement()
+				    .closeTag('body')
+				    .closeTag('html')
 			}
 		};
 	});

@@ -6,7 +6,9 @@ var utils = require('./hcas.utils.js');
 var HtmlBuilder = require('./hcas.htmlBuilder.js');
 
 var Control = function (structure) {
-	var children = [];
+    var self = this;
+    
+    var children = [];
 	var content = null;
 	var html = [];
 	var attributes = {};
@@ -81,12 +83,13 @@ var Control = function (structure) {
 		if (attr.isContent)
 			content = value;
 		else 
-			attributes[name] = value;
+            attributes[name] = attr.value(value);
 	};
 
 	this.render = function () {
-		console.log('Rendering:', structure.type);
-		structure.render(htmlBuilder, { content: content });
+        console.log('Rendering:', structure.type);
+
+		structure.render(htmlBuilder, { content: content, attributes: attributes });
 
 		return htmlBuilder.build();
 	};

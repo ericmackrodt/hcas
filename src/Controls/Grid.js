@@ -7,7 +7,7 @@ module.exports = function (hcas) {
 			},
 			inheritAttributes: {
 				'Row': {
-					render: function() {}
+					value: function() {}
 				}
 			},
 			render: function (builder) {

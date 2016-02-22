@@ -1,7 +1,8 @@
 <Page>
 	<StackPanel orientation="vertical" 
               horizontalAlign="stretch" 
-              background="#000000">
+              background="#FFFFFF"
+              foreground="#000000">
 		<Header text="{binding title}" />
     
     <Grid>
