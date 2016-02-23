@@ -122,7 +122,7 @@ var HtmlBuilder = function (hcasType) {
     this.selfClosingTag = function (name, attrs) {
         self.openTag(name, attrs);
         return self.closeTag(name);
-    }
+    };
 
 	this.addAttribute = function(key, value) {
 		if (!key)
