@@ -29,7 +29,9 @@
     <Compile Include="src\hcas.js" />
     <Compile Include="src\hcas.parser.js" />
     <Compile Include="src\hcas.utils.js" />
+    <Compile Include="src\hcas.attributeProcessor.js" />
     <Compile Include="tests\hcas.control.tests.js" />
+    <Compile Include="src\hcas.controlApi.js" />
     <Compile Include="tests\hcas.htmlBuilder.tests.js" />
     <Compile Include="tests\hcas.tests.js" />
     <Compile Include="tests\hcas.utils.tests.js" />

@@ -24,17 +24,6 @@ describe('Hcas', function () {
 		afterEach(function() {
 		});
 
-		it('should throw an exception if control does not have a render method', function () {
-			var sut = function () {
-				_registryInstance.defineControl('Control', function() {
-					return {
-
-					};
-				});
-			};
-			expect(sut).to.throw('Control (Control) does not have a "render" function');
-		});
-
 		it('should fail when adding an Control without a type', function() {
 			var sut = function () {
 				_registryInstance.defineControl(function () {
@@ -45,14 +34,6 @@ describe('Hcas', function () {
 			};
 
 			expect(sut).to.throw('Cannot register a control without a type name');
-		});
-
-		it('should fail when adding an Control wihout an implementation', function() {
-			var sut = function () {
-				_registryInstance.defineControl("Control");
-			};
-
-			expect(sut).to.throw('The Control (Control) does not have an implementation');
 		});
 
 		it('should not be able to add two controls of the same Type', function() {

@@ -3,39 +3,42 @@
 var defaultControlsFolder = './Controls/';
 var parser = require('./hcas.parser.js');
 var utils = require('./hcas.utils.js');
+var ControlApi = require('./hcas.controlApi.js');
 
 var hcas = module.exports = {};
 
-//A Control Registry object so it's easier to test.
 hcas.ControlRegistry = function () {
-	var registeredControls = {};
+    var registeredControls = {};
+    
+    this.defineControl = function (type, structure) {
+        if (!type || typeof type != "string")
+            throw new Error("Cannot register a control without a type name");
+        
+        if (registeredControls[type])
+            throw new Error(utils.formatString('Cannot add two controls of the same type ({0})', type));
+        
+        var definition;
+        
+        if (typeof structure === 'object' || !structure) {
+            definition = structure || {};
+        } else if (typeof structure === 'function') {
+            definition = structure();
+        }
+        
+        var el = new ControlApi(type, definition);
 
-	this.defineControl = function (type, structure) {
-		if (!type || typeof type != "string")
-			throw new Error("Cannot register a control without a type name");
+        registeredControls[type] = el;
 
-		if (!structure || typeof structure != "function")
-			throw new Error(utils.formatString('The Control ({0}) does not have an implementation', type));
-
-		if (registeredControls[type])
-			throw new Error(utils.formatString('Cannot add two controls of the same type ({0})', type));
-
-		var el = structure();
-
-		if (!el || typeof el.render != 'function')
-			throw new Error(utils.formatString('Control ({0}) does not have a "render" function', type));
-
-		el.type = type;
-		registeredControls[type] = el;
-	};
-
-	this.retrieveControl = function (type) {
-		var el = registeredControls[type];
-		if (!el)
-			throw utils.formatString("Control ({0}) does not exist", type);
-
-		return el;
-	};
+        return el;
+    };
+    
+    this.retrieveControl = function (type) {
+        var el = registeredControls[type];
+        if (!el)
+            throw utils.formatString("Control ({0}) does not exist", type);
+        
+        return el.getStructure();
+    };
 };
 
 //Keeps a singleton for control registration.

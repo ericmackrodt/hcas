@@ -1,7 +1,7 @@
 module.exports = function (hcas) {
 	"use strict";
 
-	hcas.defineControl("Button", function(api) {
+	hcas.defineControl("Button", function() {
 		return {
 			attributes: {
 				content: {
