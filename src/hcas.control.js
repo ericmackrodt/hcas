@@ -11,6 +11,12 @@ var fs = require('fs');
 var Control = function (structure) {
     var self = this;
     
+    if (!structure)
+		throw new Error('A control needs to be instantiated with its configuration');
+
+	if (!structure.type)
+		throw new Error('A control has to have its type defined');
+    
     var children = [];
     
     var controlData = {
@@ -18,12 +24,6 @@ var Control = function (structure) {
         attributes: {},
         stylesheets: structure.stylesheets    
     };
-    
-	if (!structure)
-		throw new Error('A control needs to be instantiated with its configuration');
-
-	if (!structure.type)
-		throw new Error('A control has to have its type defined');
     
     function loadTemplate() {
         if (structure.template)

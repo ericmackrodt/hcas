@@ -70,7 +70,8 @@ describe('Hcas', function () {
                 });
                 var result = _controlApi.getStructure();
                 expect(result.attributes).to.have.property('someAttribute').that.deep.equals({
-                    isContent: true
+                    isContent: true,
+                    name: 'someAttribute'
                 });
             });
         });
