@@ -51,6 +51,7 @@ hcas.parse = parser(_controlRegistry).parse;
 //This is not definitive
 var normalizedPath = require("path").join(__dirname, "Controls");
 require("fs").readdirSync(normalizedPath).forEach(function(file) {
-  	console.log(file);
+    if (!file.endsWith('.js')) return;
+    console.log(file);
 	require(defaultControlsFolder + file)(hcas);
 });

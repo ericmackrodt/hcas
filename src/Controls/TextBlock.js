@@ -3,17 +3,13 @@ module.exports = function (hcas) {
 	
 	hcas.defineControl("TextBlock", function(api) {
 		return {
+            template: '<p data-hcastype="TextBlock">[content]</p>',
 			attributes: {
 				text: {
 					isContent: true
 				}
 			},
-			allowsControls: true,
-			render: function (builder, data) {
-				builder.openTag('p');
-				builder.write(data.content);
-				builder.closeTag('p');
-			}
+			allowsControls: false
 		};
 	});
 

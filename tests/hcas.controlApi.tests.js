@@ -10,7 +10,7 @@ describe('Hcas', function () {
         var _controlApi;
         
         beforeEach(function () {
-            _controlApi = new ControlApi('Type', { isRoot: true });
+            _controlApi = new ControlApi('Type', { isRoot: true, template: '<div></div>' });
         });
         
         afterEach(function () {
@@ -28,7 +28,8 @@ describe('Hcas', function () {
             var result = _controlApi.getStructure();
             result.should.deep.equals({
                 type: 'Type',
-                isRoot: true
+                isRoot: true,
+                template: '<div></div>'
             });
         });
         
@@ -74,27 +75,17 @@ describe('Hcas', function () {
             });
         });
 
-        describe('defineRender', function () {
-            it('should fail if empty', function () {
-                var sut = function () {
-                    _controlApi.defineRender();
-                };
-                
-                expect(sut).to.throw('No render function was defined for (Type)');
-            });
-            
-            it('should fail if not a function', function () {
-                var sut = function () {
-                    _controlApi.defineRender({});
-                };
-                
-                expect(sut).to.throw('No render function was defined for (Type)');
-            });
-            
-            it('should set render function', function () {
-                _controlApi.defineRender(function () { });
+        describe('defineTemplate', function () {
+            it('should be ignored if empty', function () {
+                _controlApi.defineTemplate();
                 var result = _controlApi.getStructure();
-                expect(result).to.have.property('render').that.is.a('function');
+                result.template.should.equal('<div></div>');
+            });
+            
+            it('should set a template', function () {
+                _controlApi.defineTemplate('<span></span>');
+                var result = _controlApi.getStructure();
+                result.template.should.equal('<span></span>');
             });
         });
 

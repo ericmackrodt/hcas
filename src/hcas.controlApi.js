@@ -23,8 +23,10 @@ var ControlApi = function (type, structure) {
         if (!name || typeof name !== 'string')
             throw new Error(utils.formatString('You have to define a name for an attribute in ({0})', structure.type));
         
-        if (typeof attrDefinition === 'object')
+        if (typeof attrDefinition === 'object') {
+            attrDefinition.name = name;
             structure.attributes[name] = attrDefinition;
+        }
         
         return self;
     };
@@ -41,12 +43,9 @@ var ControlApi = function (type, structure) {
         structure.tagAttributes[name] = attribute;
     };
 
-    this.defineRender = function (fn) {
-        if (typeof fn !== 'function')
-            throw new Error(utils.formatString('No render function was defined for ({0})', structure.type));
-        
-        structure.render = fn;
-        return self;
+    this.defineTemplate = function (template) {
+        if (!template) return;
+        structure.template = template;
     };
 
     this.getStructure = function () {

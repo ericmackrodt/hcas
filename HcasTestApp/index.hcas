@@ -1,8 +1,9 @@
-<Page>
+<Page
+    title="Hcas Example">
 	<StackPanel orientation="vertical" 
               horizontalAlign="stretch" 
-              background="#FFFFFF"
-              foreground="#000000">
+              background="#000000"
+              foreground="#FFFFFF">
 		<Header text="{binding title}" />
     
     <Grid>

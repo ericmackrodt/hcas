@@ -1,7 +1,5 @@
 var express = require('express');
 var fs = require('fs');
-//var hcas = require('.');
-
 var app = express();
 
 app.use(express.static(__dirname + '/public'));
@@ -19,20 +17,6 @@ router.get('/', function (req, res) {
     console.log('Rendering view...')
     res.render('index.hcas', { title: 'Bound title', message: 'Hello there!'});
 });
-
-// router.get('/', function (req, res) {
-//     fs.readFile('./HcasTestApp/index.hcas', 'ascii', function (err, data) {
-//         if (err) {
-//             console.log("Could not open file" + err);
-//             process.exit(1);
-//         }
-        
-//         hcas.parse(data.substring(0, data.length), function(result) {
-//         	var html = result.render();
-//         	res.send(html);
-//         });
-//     });
-// });
 
 app.use('/', router);
 

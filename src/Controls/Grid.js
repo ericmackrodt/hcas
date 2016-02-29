@@ -3,6 +3,7 @@ module.exports = function (hcas) {
 
 	hcas.defineControl("Grid", function(api) {
 		return {
+            template: '<div data-hcastype="Grid">[children]</div>',
 			attributes: {
 			},
 			inheritAttributes: {

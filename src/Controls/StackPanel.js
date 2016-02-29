@@ -3,10 +3,14 @@ module.exports = function (hcas) {
     
     var utils = require('./../hcas.utils.js');
     
-    hcas.defineControl("StackPanel", { allowsControls: true })
+    hcas.defineControl("StackPanel", {
+        allowsControls: true,
+        template: '<div data-hcastype="StackPanel" [attributes]>[children]</div>'
+    })
         
     .defineAttribute('orientation', {
         isContent: false,
+        selector: 'class',
         value: function (value) {
             return value;
         }
@@ -14,7 +18,7 @@ module.exports = function (hcas) {
     
     .defineAttribute('horizontalAlign', {
         isContent: false,
-        mapTo: 'class',
+        selector: 'class',
         value: function (value) {
             switch (value) {
                 case "top":
@@ -32,28 +36,17 @@ module.exports = function (hcas) {
     })
 
     .defineAttribute('background', {
+        selector: 'style',
         value: function (value) {
-            return value;
+            return utils.formatString('background: {0};', value);
         }
     })
     
     .defineAttribute('foreground', {
+        selector: 'style',
         value: function (value) {
-            return value;
+            return utils.formatString('color: {0}', value);
         }
-    })
-    
-    .defineRender(function (builder, data) {
-        builder
-            .openTag('div')
-            .addClass('stackPanel');
-        
-        if (data.attributes.horizontalAlign)
-            builder.addClass(data.attributes.horizontalAlign);
-        
-        builder
-            .childrenPlacement()
-            .closeTag('div');
     });
 };
 

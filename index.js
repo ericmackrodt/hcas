@@ -10,7 +10,7 @@ exports.__express = function (filePath, options, callback) {
         }
 
         hcas.parse(data.substring(0, data.length), options, function(result) {
-            rendered = result.render();
+            var rendered = result.render();
             return callback(null, rendered);
         });
     });

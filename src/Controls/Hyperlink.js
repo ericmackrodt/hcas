@@ -3,28 +3,18 @@ module.exports = function (hcas) {
 
 	var utils = require('../hcas.utils.js');
 
-	hcas.defineControl("Hyperlink", function(api) {
-		return {
-			attributes: {
-				content: {
-					isContent: true
-				},
-				url: {
-					value: function(value) {
-						return value;
-					}
-				}
-			},
-			render: function (builder, data) {
-                builder.openTag('a');
-                
-                if (data.attributes.url)
-                    builder.addAttribute('href', data.attributes.url);
+    hcas.defineControl("Hyperlink", {
+        template: '<a data-hcastype="Hyperlink" [attributes.url]>[content]</a>'
+    })
 
-				builder.write(data.content);
-				builder.closeTag('a');
-			}
-		};
-	});
-
+    .defineAttribute('content', {
+        isContent: true
+    })
+    
+    .defineAttribute('url', {
+        selector: 'href',
+        value: function (value) {
+            return value;
+        }
+    });
 };

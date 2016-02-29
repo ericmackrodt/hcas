@@ -2,39 +2,38 @@
 
 "use strict";
 
+var _ = require('underscore');
 var utils = require('./hcas.utils.js');
 var HtmlBuilder = require('./hcas.htmlBuilder.js');
+var TemplateCompiler = require('./hcas.templateCompiler.js');
+var fs = require('fs');
 
 var Control = function (structure) {
     var self = this;
     
     var children = [];
-	var content = null;
-	var html = [];
-	var attributes = {};
-
+    
+    var controlData = {
+        content: null,
+        attributes: {},
+        stylesheets: structure.stylesheets    
+    };
+    
 	if (!structure)
 		throw new Error('A control needs to be instantiated with its configuration');
 
 	if (!structure.type)
 		throw new Error('A control has to have its type defined');
- 
-	var htmlBuilder = new HtmlBuilder(structure.type);
-	
-	htmlBuilder.onChildrenCall = function () {
-        var childrenHtml = [];
-        for (var i in children) {
-            var child = children[i];
-            childrenHtml.push(child.render());
-        }
-        return childrenHtml.join('\n'); //don't know if \n will be really necessary
-	};
-
-	var defaultAttributes = {
-		'name': function (value) {
-			
-		}
-	};
+    
+    function loadTemplate() {
+        if (structure.template)
+            return structure.template;
+            
+        if (!structure.templateFile)
+            throw new Error(utils.formatString('({0}) has no template specified', structure.type));
+        
+        return fs.readFileSync(structure.templateFile, 'utf8');
+    };
 
 	Object.defineProperty(this, "type", {
 		get: function () {
@@ -50,13 +49,13 @@ var Control = function (structure) {
 
 	Object.defineProperty(this, "content", {
 		get: function () {
-			return content || '';
+			return controlData.content || '';
 		}
 	});
 
 	Object.defineProperty(this, "attributeValues", {
 		get: function () {
-			return attributes || [];
+			return controlData.attributes || [];
 		}
 	});
 	
@@ -71,7 +70,7 @@ var Control = function (structure) {
 	};
 
 	this.setContent = function(value) {
-		content = value;
+		controlData.content = value;
 	};
 
 	this.setAttribute = function(name, value) {
@@ -81,17 +80,27 @@ var Control = function (structure) {
 		var attr = structure.attributes[name];
 
 		if (attr.isContent)
-			content = value;
-		else 
-            attributes[name] = attr.value(value);
+			controlData.content = value;
+		else {
+            //Argh, this could probably be better
+            var obj = {};
+            for(var key in attr) {
+                var val = attr[key];
+                if (key === 'value')
+                    val = val(value);
+                obj[key] = val;   
+            };         
+            controlData.attributes[name] = obj;
+        }
 	};
 
 	this.render = function () {
         console.log('Rendering:', structure.type);
-
-		structure.render(htmlBuilder, { content: content, attributes: attributes });
-
-		return htmlBuilder.build();
+        
+        var template = loadTemplate();
+        
+		var compiler = new TemplateCompiler(structure.type, template, controlData, children);
+		return compiler.compile();
 	};
 };
 

@@ -7,7 +7,7 @@
     "test": "tests"
   },
   "scripts": {
-    "test": "grunt test"
+    "test": "gulp mocha"
   },
   "author": "Eric Mackrodt",
   "license": "ISC",

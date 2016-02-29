@@ -28,11 +28,12 @@
     <Compile Include="src\hcas.htmlBuilder.js" />
     <Compile Include="src\hcas.js" />
     <Compile Include="src\hcas.parser.js" />
+    <Compile Include="src\hcas.templateCompiler.js" />
     <Compile Include="src\hcas.utils.js" />
-    <Compile Include="src\hcas.attributeProcessor.js" />
     <Compile Include="tests\hcas.control.tests.js" />
     <Compile Include="src\hcas.controlApi.js" />
     <Compile Include="tests\hcas.htmlBuilder.tests.js" />
+    <Compile Include="tests\hcas.controlApi.tests.js" />
     <Compile Include="tests\hcas.tests.js" />
     <Compile Include="tests\hcas.utils.tests.js" />
     <Compile Include="src\Controls\Button.js" />
@@ -43,6 +44,7 @@
     <Compile Include="src\Controls\StackPanel.js" />
     <Compile Include="src\Controls\TextBlock.js" />
     <Compile Include="src\Controls\TextBox.js" />
+    <Content Include="src\Controls\Page.html" />
     <Content Include="tests\_coverage\coverage-final.json" />
     <Content Include="tests\_coverage\lcov-report\index.html" />
     <Content Include="tests\_coverage\lcov-report\base.css" />
