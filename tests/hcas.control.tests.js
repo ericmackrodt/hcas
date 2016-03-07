@@ -124,7 +124,7 @@ describe('Hcas', function () {
 			it('should set value for attribute', function() {
 				_control.setAttribute('attrValue', 'newValue');
 
-				_control.attributeValues.attrValue.should.equal('newValue');
+				_control.attributeValues.attrValue.should.eql({ value: 'newValue' });
 			});
 		});
 	});
